@@ -31,4 +31,6 @@ class MasterFragment : Fragment() {
             viewModel.select(isChecked)
         }
     }
+
+
 }
