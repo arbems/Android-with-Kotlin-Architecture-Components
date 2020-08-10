@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="user" type="com.example.databindingdoc.data.User"/>
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(user.age + 1)}"
+            android:visibility="@{user.age > 40 ? View.GONE : View.VISIBLE}"
+            android:transitionName='@{"image_" + user.id}'/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.displayName ?? user.lastName}"/>
+    </LinearLayout>
+</layout>
+
+
