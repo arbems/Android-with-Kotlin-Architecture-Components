@@ -6,7 +6,7 @@
 
 #### [DataBinding](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding)
 
-#### [Gestionar ciclos de vida](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Gestionar%20los%20ciclos%20de%20vida)
+#### [Gestionar ciclos de vida con componentes de la arquitectura](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Gestionar%20los%20ciclos%20de%20vida)
 
 #### [Guardar estados de IU](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Guardar%20estados%20de%20IU)
 

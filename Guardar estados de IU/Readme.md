@@ -1,4 +1,4 @@
-# Android con Kotlin - Guardar estados de IU
+# Android con Kotlin - Guardar estados de IU con componentes de la arquitectura
 
 ## Attribution
 
