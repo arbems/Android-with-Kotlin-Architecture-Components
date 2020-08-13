@@ -1,5 +1,7 @@
 # Android con Kotlin - Gestionar los ciclos de vida con componentes de la arquitectura
 
+Código de ejemplo de como gestionar los ciclos de vida con componentes de la arquitectura en Android con Kotlin.
+
 Los componentes optimizados para ciclo de vida realizan acciones en respuesta a un cambio en el estado del ciclo de vida de otro componente, como actividades o fragmentos. 
 
 Implementar las acciones de los componentes dependientes en los métodos del ciclo de vida de actividades y fragmentos genera una organización deficiente del código y la proliferación de errores.
@@ -28,24 +30,72 @@ Los objetos LifeCycle proporcionan información sobre el ciclo de vida del propi
 
 * El **estado** actual del componente al que le hace un seguimiento el objeto Lifecycle.
 
-![Estados y eventos que componen el ciclo de vida de la actividad de Android](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/0001.png)
+<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Gestionar%20los%20ciclos%20de%20vida/0001.png" width="700"></img>
 
 Una clase puede supervisar el estado del ciclo de vida del componente agregando anotaciones a sus métodos. Luego, puedes agregar un observador llamando al método addObserver() de la clase Lifecycle y pasa una instancia de tu observador:
 
-    class MyObserver : LifecycleObserver {
+    internal class MyLocationListener(
+        private val context: Context,
+        private val lifecycle: Lifecycle,
+        private val tag: String,
+        private val callback: (Location) -> Unit
+    ) : LifecycleObserver {
+    
+        private var enabled = false
+    
+        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        fun onCreate() {
+            Log.i(tag, "Lifecycle.Event.ON_CREATE - ${lifecycle.currentState}")
+        }
+    
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        fun onStart() {
+            if (enabled) {
+                // connect
+            }
+    
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                Log.i(tag, "Lifecycle.Event.ON_START - ${lifecycle.currentState}")
+            }
+        }
     
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        fun connectListener() {
-            ...
+        fun onResume() {
+            Log.i(tag, "Lifecycle.Event.ON_RESUME - ${lifecycle.currentState}")
         }
-
+    
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        fun disconnectListener() {
-            ...
+        fun onPause() {
+            Log.i(tag, "Lifecycle.Event.ON_PAUSE - ${lifecycle.currentState}")
+        }
+    
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+        fun onStop() {
+            // disconnect if connected
+            Log.i(tag, "Lifecycle.Event.ON_STOP - ${lifecycle.currentState}")
+        }
+    
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        fun onDestroy() {
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.DESTROYED)) {
+                Log.i(tag, "Lifecycle.Event.ON_DESTROY - ${lifecycle.currentState}")
+            }
+        }
+    
+        fun enable() {
+            enabled = true
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                // connect if not connected
+            }
         }
     }
+####
+Activity:
 
-    myLifecycleOwner.getLifecycle().addObserver(MyObserver())
+    myLocationListener = MyLocationListener(this, lifecycle, "MyLocationListener") { location -> ... }
+    lifecycle.addObserver(myLocationListener)
+    
+`Si necesitamos usar el MyLocationListener de otra actividad o fragmento, solo es necesario inicializarlo.`
 
 #### [LifecycleOwner](https://developer.android.com/reference/androidx/lifecycle/LifecycleOwner)
 
