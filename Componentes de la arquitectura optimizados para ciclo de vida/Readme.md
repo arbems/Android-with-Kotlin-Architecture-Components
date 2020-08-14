@@ -30,7 +30,7 @@ Los objetos LifeCycle proporcionan información sobre el ciclo de vida del propi
 
 * El **estado** actual del componente al que le hace un seguimiento el objeto Lifecycle.
 
-<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Gestionar%20los%20ciclos%20de%20vida/0001.png" width="700"></img>
+<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Componentes%20de%20la%20arquitectura%20optimizados%20para%20ciclo%20de%20vida/0001.png" width="700"></img>
 
 Una clase puede supervisar el estado del ciclo de vida del componente agregando anotaciones a sus métodos. Luego, puedes agregar un observador llamando al método addObserver() de la clase Lifecycle y pasa una instancia de tu observador:
 
