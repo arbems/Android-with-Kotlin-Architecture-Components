@@ -8,8 +8,6 @@
 
 #### [DataBinding](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding)
 
-#### [Guardar estados de IU](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Guardar%20estados%20de%20IU)
-
 #### [LiveData](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData)
 
 #### [Paging](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Paging)
