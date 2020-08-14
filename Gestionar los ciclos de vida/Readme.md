@@ -116,6 +116,15 @@ La clase Lifecycle permite que otros objetos consulten el estado actual:
     }
 `Dado que varios estados se pueden intercalar para un momento determinado, si queremos verificar un estado específico, siempre usamos el método isAtLeast`
 
+## Enlaces
+
+[Ciclo de vida de una actividad](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Ciclo%20de%20vida%20de%20la%20actividad)
+
+[Fragmentos](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Fragmentos)
+
+[Cambios de estado de la actividad](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Cambios%20de%20estado%20de%20la%20actividad)
+
+[Gestionar estado de la IU](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Gestionar%20estado%20de%20la%20IU)
 
 
 ## Attribution
