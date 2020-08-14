@@ -1,4 +1,4 @@
-# Android con Kotlin - Gestionar los ciclos de vida con componentes de la arquitectura
+# Android con Kotlin - Componentes de la arquitectura optimizados para ciclo de vida
 
 Código de ejemplo de como gestionar los ciclos de vida con componentes de la arquitectura en Android con Kotlin.
 
@@ -119,12 +119,6 @@ La clase Lifecycle permite que otros objetos consulten el estado actual:
 ## Enlaces
 
 [Ciclo de vida de una actividad](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Ciclo%20de%20vida%20de%20la%20actividad)
-
-[Fragmentos](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Fragmentos)
-
-[Cambios de estado de la actividad](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Cambios%20de%20estado%20de%20la%20actividad)
-
-[Gestionar estado de la IU](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Gestionar%20estado%20de%20la%20IU)
 
 
 ## Attribution
