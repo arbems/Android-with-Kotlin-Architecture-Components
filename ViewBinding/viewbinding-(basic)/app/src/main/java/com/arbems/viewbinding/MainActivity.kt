@@ -9,9 +9,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater) // Esto crea una instancia de la clase de vinculación para la actividad que se usará.
-        val view = binding.root // obtiene una referencia a la vista raíz.
-        setContentView(view) // Pasa la vista raíz a setContentView() para que sea la vista activa en la pantalla.
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         view.name.text = "Alberto Moreno"
 
