@@ -1,4 +1,4 @@
-# Android con Kotlin - LiveData
+# Android con Kotlin - LiveData (Lifecycle, Android Jetpack)
 
 *Proyecto con códigos de ejemplos de LiveData en Android con Kotlin.*
 
