@@ -2,7 +2,7 @@
 
 Código de ejemplo de Diseños y expresiones vinculantes con DataBinding en Android con Kotlin.
 
-
+El lenguaje de expresiones permite escribir expresiones que conectan variables a las vistas del diseño.
   
 ```xml
 ```

@@ -2,6 +2,7 @@
 
 Código de ejemplo de DataBinding y objetos de datos observables en Android con Kotlin.
 
+La biblioteca de vinculación de datos proporciona clases y métodos para observar fácilmente los datos en busca de cambios. Puedes hacer que tus variables o sus propiedades sean observables.
 
   
 ```xml

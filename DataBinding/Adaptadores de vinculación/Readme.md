@@ -1,6 +1,8 @@
 # Android con Kotlin - DataBinding - Adaptadores de vinculación
 
-Código de ejemplo de adaptadores de vinculación con DataBinding en Android con Kotlin.
+Código de ejemplo de expresión de diseño y adaptadores de vinculación en Android con Kotlin.
+
+Para cada expresión de diseño, hay un adaptador de vinculación que hace las llamadas de marco de trabajo requeridas para establecer las propiedades u objetos de escucha correspondientes.
 
 
   

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.arbems.databindingandviewmodel.UserModel" />
+            type="com.arbems.databindingandlivedata.UserModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

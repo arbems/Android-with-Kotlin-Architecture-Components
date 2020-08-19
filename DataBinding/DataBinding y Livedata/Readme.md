@@ -1,17 +1,6 @@
 # Android con Kotlin - DataBinding y Livedata
 
-Código de ejemplo de DataBinding y Livedata en Android con Kotlin.
-
-
-  
-```xml
-```
-
-```kotlin
-```
-
-
-## Enlaces
+*Código de ejemplo de DataBinding, ViewModel y Livedata en Android con Kotlin.*
 
 ## Attribution
 
