@@ -1,8 +1,8 @@
 # Android con Kotlin - ViewModel (Lifecycle, Android Jetpack)
 
-[**ViewModel**](https://developer.android.com/reference/androidx/lifecycle/ViewModel) es una clase que se encarga de preparar y administrar los datos de una actividad o un fragmento.
+ViewModel es una clase que se encarga de preparar y administrar los datos de una actividad o un fragmento.
 
-[**ViewModel**]()
+[**ViewModel**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/ViewModel)
 
 [****]()
 
