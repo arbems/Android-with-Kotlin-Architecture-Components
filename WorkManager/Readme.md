@@ -1,5 +1,6 @@
 # Android con Kotlin - WorkManager
 
+*Programa y ejecuta tareas en segundo plano diferibles y basadas en restricciones.*
 
 ## Attribution
 
