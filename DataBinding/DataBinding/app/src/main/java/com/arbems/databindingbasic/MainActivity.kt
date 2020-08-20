@@ -18,6 +18,6 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_main)
 
-        binding.user = User("username", "password")
+        binding.user = User("Fernando", "Alonso")
     }
 }

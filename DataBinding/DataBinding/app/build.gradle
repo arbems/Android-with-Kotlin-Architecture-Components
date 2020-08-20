@@ -26,9 +26,14 @@ android {
         }
     }
 
-    /** Add to use DataBinding */
-    dataBinding {
+    /** Add to use DataBinding
+     dataBinding {
         enabled = true
+     }
+     */
+    // or
+    buildFeatures {
+        dataBinding true
     }
 }
 
