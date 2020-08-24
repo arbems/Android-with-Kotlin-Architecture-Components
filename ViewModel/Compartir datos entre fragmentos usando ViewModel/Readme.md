@@ -8,49 +8,46 @@ Para solucionar esta dificultad habitual, puedes usar objetos ViewModel. Estos f
 
 **Ventajas de este enfoque:**
 
-- La Activity no necesita hacer nada ni saber sobre esta comunicación.
-- Los fragmentos no necesitan saber acerca del otro, excepto por el contrato de ViewModel. Si uno de los fragmentos desaparece, el otro sigue funcionando de manera habitual.
-- Cada fragmento tiene su propio ciclo de vida y no se ve afectado por el ciclo de vida del otro. Si un fragmento reemplaza al otro, la IU continúa funcionando sin problemas.
+* La Activity no necesita hacer nada ni saber sobre esta comunicación.
+* Los fragmentos no necesitan saber acerca del otro, excepto por el contrato de ViewModel. Si uno de los fragmentos desaparece, el otro sigue funcionando de manera habitual.
+* Cada fragmento tiene su propio ciclo de vida y no se ve afectado por el ciclo de vida del otro. Si un fragmento reemplaza al otro, la IU continúa funcionando sin problemas.
 
-Ejemplo comunicación usando ViewModel:
+Ejemplo comunicación entre fragmentos y actividad usando ViewModel:
 
-    ViewModel:
+ViewModel:
+```kotlin
+class SharedViewModel : ViewModel() {
+    private val _selected = MutableLiveData<Boolean>()
+    val selected: LiveData<Boolean> get() = _selected
 
-     class SharedViewModel : ViewModel() {
-        val selected = MutableLiveData<Item>()
-
-        fun select(item: Item) {
-            selected.value = item
-        }
+    fun select(selected: Boolean) {
+       _selected.value = selected
     }
-####    
-    Fragment 1:
-    
-     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
-       model = activity?.run {
-            ViewModelProviders.of(this)[SharedViewModel::class.java]
-        } ?: throw Exception("Invalid Activity")
+}
+```   
+Activity:
+```kotlin
+// Usa 'by viewModels()' Kotlin property delegate from the activity-ktx artifact
+private val viewModel: SharedViewModel by viewModels()
+```
 
-    }
-####    
-    Fragment 2:
+Primer fragmento:
+```kotlin
+// Usa 'by activityViewModels()' Kotlin property delegate from the fragment-ktx artifact
+private val viewModel: SharedViewModel by activityViewModels()
+```
 
-     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        model = activity?.run {
-            ViewModelProviders.of(this)[SharedViewModel::class.java]
-        } ?: throw Exception("Invalid Activity")
-        
-    }
+Segundo fragmento:
+```kotlin
+// Usa 'by activityViewModels()' Kotlin property delegate from the fragment-ktx artifact
+private val viewModel: SharedViewModel by activityViewModels()
+```
 
 
 
 `Ten en cuenta que ambos fragmentos recuperan la actividad que los contiene. De esa manera, cuando cada fragmento obtiene el ViewModelProvider, reciben la misma instancia SharedViewModel, cuyo alcance está determinado por esta actividad.`
 
-ViewModels también se puede usar como una capa de comunicación entre diferentes Fragmentos de una Actividad. Cada Fragmento puede adquirir el ViewModel usando la misma clave a través de su Actividad. Esto permite la comunicación entre los Fragmentos de forma desacoplada, de modo que nunca necesitan hablar directamente con el otro Fragmento.
+ViewModels también se puede usar como una capa de comunicación entre diferentes fragmentos de una actividad. Cada fragmento puede adquirir el ViewModel usando la misma clave a través de su actividad. Esto permite la comunicación entre los Fragmentos de forma desacoplada, de modo que nunca necesitan hablar directamente con el otro fragmento.
 
 
 

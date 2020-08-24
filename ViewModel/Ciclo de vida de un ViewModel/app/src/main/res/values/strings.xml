@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Ciclo de vida ViewModel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_fragment">Hello fragment</string>
+</resources>

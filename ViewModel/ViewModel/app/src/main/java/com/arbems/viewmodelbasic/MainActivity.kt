@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
      * Declaring ViewModel
      */
     private lateinit var viewModel: MainViewModel
-    val model: MainViewModel by viewModels()
-
+    // or using activity-ktx artifact
+    /* val viewModel by viewModels<MainViewModel>() */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,5 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // or
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        // or using activity-ktx artifact
-        val viewModel2: MainViewModel by viewModels()
     }
 }
