@@ -13,7 +13,7 @@ Por lo general, solicitas un ViewModel la primera vez que el sistema llama al m�
 
 Los objetos ViewModel se retienen automáticamente durante los cambios de configuración, de manera que los datos que conservan están disponibles de inmediato para la siguiente instancia de actividad.
 
-![Lifecycle Viewmodel](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/blob/master/ViewModel/ViewModel%20Lifecycle/0001.png?raw=true)
+![Lifecycle Viewmodel](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/blob/master/ViewModel/Ciclo%20de%20vida%20de%20un%20ViewModel/0001.png?raw=true)
 
 ## Attribution
 
