@@ -6,7 +6,7 @@ No podemos crear [**ViewModel**](https://developer.android.com/reference/android
 
 Pero ViewModelProvider solo puede crear instancias de ViewModels **sin parámetros de constructor**.
 
-Entonces si tenemos un ViewModel con múltiples parámetros, necesitamos usar un [**ViewModelProvider.Factory**](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider.Factory) para pasar a ViewModelProvider y obtener una instancia de ViewModel.
+Entonces si tenemos un ViewModel con múltiples parámetros, necesitamos usar un [**ViewModelProvider.Factory**](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider.Factory) para pasar a [**ViewModelProvider**](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider) y obtener una instancia de ViewModel.
 
 `Nota: Podemos simplificar el código usando una clase base de ViewModelFactory. Y podemos simplificar aun más usando ViewModelutils.`
 

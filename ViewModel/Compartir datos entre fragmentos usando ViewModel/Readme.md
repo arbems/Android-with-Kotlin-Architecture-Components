@@ -1,10 +1,14 @@
 # Android con Kotlin - Compartir datos entre fragmentos usando ViewModel
 
+*Código de ejemplo de una aplicación que muestra comunicación entre diferentes Fragmentos de una Actividad con ViewModel en Android con Kotlin.*
+
 ## Compartir datos entre fragmentos mediante ViewModel
 
 Es muy común que dos o más fragmentos de una actividad necesiten comunicarse entre sí. Los dos fragmentos deben administrar una situación en la que el otro fragmento todavía no se creó o no está visible.
 
-Para solucionar esta dificultad habitual, puedes usar objetos ViewModel. Estos fragmentos pueden compartir un ViewModel mediante su alcance de actividad para administrar esta comunicación.
+Para solucionar esta dificultad habitual, puedes usar objetos ViewModel. 
+
+ViewModels se puede utilizar como capa de comunicación entre diferentes Fragmentos de una Actividad. Cada Fragmento puede adquirir ViewModel usando la misma clave a través de su Actividad. Esto permite la comunicación entre Fragmentos de forma desacoplada de modo que nunca necesiten hablar directamente con el otro Fragmento.
 
 **Ventajas de este enfoque:**
 

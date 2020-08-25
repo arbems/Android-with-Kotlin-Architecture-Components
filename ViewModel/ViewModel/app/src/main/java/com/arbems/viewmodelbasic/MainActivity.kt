@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
      */
     private lateinit var viewModel: MainViewModel
     // or using activity-ktx artifact
-    /* val viewModel by viewModels<MainViewModel>() */
+    val viewModel2 by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
