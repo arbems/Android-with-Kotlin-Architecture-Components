@@ -8,9 +8,6 @@ import com.arbems.viewmodelfactory.utils.getViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var viewModelFactory: MainViewModelFactory
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,8 +18,8 @@ class MainActivity : AppCompatActivity() {
          *  ViewModelFactory create instances of ViewModel objects, with or without constructor parameters.
          *  Note: ViewModelProvider without factory only creates instances without constructor parameters
          */
-        viewModelFactory = MainViewModelFactory("Alberto", 30)
-        viewModel = ViewModelProvider(this, viewModelFactory)
+        val viewModelFactory = MainViewModelFactory("Alberto", 30)
+        val viewModel01 = ViewModelProvider(this, viewModelFactory)
                 .get(MainViewModel::class.java)
 
 

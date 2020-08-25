@@ -1,14 +1,14 @@
-# Android con Kotlin - ViewModels - ViewModelFactory
+# Android con Kotlin - ViewModels - Factory
 
-Código de ejemplo de una aplicación simple de ViewModel y ViewModelFactory en Android con Kotlin.
+*Código de ejemplo de una aplicación simple de ViewModel y ViewModelProvider.Factory en Android con Kotlin.*
                                                                                                   
-No podemos crear ViewModel por nuestra cuenta. Necesitamos la utilidad ViewModelProvider proporcionada por Android para crear ViewModels.
+No podemos crear [**ViewModel**](https://developer.android.com/reference/androidx/lifecycle/ViewModel) por nuestra cuenta. Necesitamos la utilidad ViewModelProvider proporcionada por Android para crear ViewModels.
 
-Pero ViewModelProvider solo puede crear instancias de ViewModels sin parámetros de constructor.
+Pero ViewModelProvider solo puede crear instancias de ViewModels **sin parámetros de constructor**.
 
-Entonces si tenemos un ViewModel con múltiples parámetros, necesitamos usar un Factory para pasar a ViewModelProvider y obtener una instancia de ViewModel.
+Entonces si tenemos un ViewModel con múltiples parámetros, necesitamos usar un [**ViewModelProvider.Factory**](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider.Factory) para pasar a ViewModelProvider y obtener una instancia de ViewModel.
 
-Nota: Podemos simplificar el código usando una clase base de ViewModelFactory. Y podemos simplificar aun más usando ViewModelutils.
+`Nota: Podemos simplificar el código usando una clase base de ViewModelFactory. Y podemos simplificar aun más usando ViewModelutils.`
 
 
 ## Attribution
