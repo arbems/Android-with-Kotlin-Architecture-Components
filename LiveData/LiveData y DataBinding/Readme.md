@@ -1,6 +1,8 @@
 # Android con Kotlin - DataBinding con Livedata
 
-*Código de ejemplo de DataBinding con Livedata en Android con Kotlin.*
+*Código de ejemplo de una aplicación simple con LiveData y DataBinding en Android con Kotlin.*
+
+
 
 ## Attribution
 
