@@ -10,11 +10,11 @@
 
 [**Compartir datos entre fragmentos usando ViewModel**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/Compartir%20datos%20entre%20fragmentos%20usando%20ViewModel)
 
+[**ViewModel KTX**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/ViewModel%20KTX)
+
 [**Usar corrutinas con ViewModel**]()
 
-[**ViewModel ktx**]()
-
-[**ViewModel Factory**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/ViewModelFactory)
+[**ViewModelProvider.Factory**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/ViewModelProvider.Factory)
 
 ## Attribution
 
