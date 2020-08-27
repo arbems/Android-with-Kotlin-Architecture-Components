@@ -7,6 +7,8 @@ Una vez que la vinculación de vista está habilitada en un módulo, genera una 
 
 `Nota: En la mayoría de los casos, la vinculación de vistas reemplaza a findViewById`
 
+En muchos casos, la vinculación de vistas puede proporcionar los mismos beneficios que la vinculación de datos con una implementación más simple y un rendimiento mejor. Si usas la vinculación de datos principalmente para reemplazar las llamadas de *findViewById()*, te recomendamos reemplazarla con la vinculación de vistas.
+
 #### Configuración de ViewBinding
 
 La vinculación de vista se habilita módulo por módulo. Para habilitar la vinculación de vista en un módulo, agrega el elemento viewBinding a su archivo build.gradle
@@ -67,7 +69,9 @@ override fun onDestroyView() {
 
 Ahora para usar la clase de enlace en fragmentos:
 
-    binding.name.text = "name-text"
+```kotlin
+binding.name.text = "name-text"
+```
 
 
 ### Diferencias ViewBinding y findViewById
@@ -94,9 +98,6 @@ En cambio, ViewBinding tiene las siguientes limitaciones en comparación con Dat
 
 - ViewBinding no admite la vinculación de datos bidireccional.
 
-## Enlaces
-
-[**DataBinding**]()
 
 ## Attribution
 

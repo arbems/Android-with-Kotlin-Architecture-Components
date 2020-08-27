@@ -1,6 +1,8 @@
-# Android con Kotlin - LiveData (Lifecycle, Android Jetpack)
+# Android con Kotlin - LiveData (Biblioteca de Jetpack - Lifecycle)
 
 *Proyecto con códigos de ejemplos de LiveData en Android con Kotlin.*
+
+**LiveData** es una clase de contenedor de datos que se puede observar dentro de un ciclo de vida determinado.
 
 [**Corrutinas con LiveData**]()
 

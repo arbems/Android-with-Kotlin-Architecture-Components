@@ -1,6 +1,6 @@
-# Android con Kotlin - ViewModel (Lifecycle, Android Jetpack)
+# Android con Kotlin - ViewModel (Biblioteca de Jetpack - Lifecycle)
 
-*Proyecto con ejemplos de código de ViewModels en Android con Kotlin.*
+*Proyecto con ejemplos de código de ViewModel en Android con Kotlin.*
 
 **ViewModel** es una clase que se encarga de preparar y administrar los datos de una actividad o un fragmento.
 

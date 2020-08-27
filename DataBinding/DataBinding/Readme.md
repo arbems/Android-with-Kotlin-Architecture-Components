@@ -1,8 +1,8 @@
-# Android con Kotlin - DataBinding básico
+# Android con Kotlin - Data Binding
 
-Código de ejemplo de una aplicación simple con DataBinding en Android con Kotlin.
+*Código de ejemplo de una aplicación simple con Data Binding en Android con Kotlin.*
 
-## Configuración de DataBinding
+## Configuración de Data Binding
 
 * Añadir al archivo Gradle:
 
@@ -11,29 +11,32 @@ Código de ejemplo de una aplicación simple con DataBinding en Android con Kotl
             dataBinding {
                 enabled = true
             }
+            // or
+            buildFeatures {
+                dataBinding true
+            }
         }
 
 * Para poder usar bibliotecas como Dagger o Data Binding en sus proyectos de Kotlin añade:
 
         apply plugin: 'kotlin-kapt'
   
- ## Diseño
+## Diseño
   
 ```xml
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="" type="" />
-        <variable name="" type="" />
-        ...
+        <variable
+            name="viewmodel"
+            type="com.myapp.data.ViewModel" />
     </data>
-    <ConstraintLayout>
-        <TextView android:text="@{expression}" />
-    </ConstraintLayout>
+    <ConstraintLayout... /> <!-- UI layout's root element -->
 </layout>
 ```
-* Documentación Android: [**Diseños y expresiones vinculantes**](https://developer.android.com/topic/libraries/data-binding/expressions)
+\* Documentación Android: [**Diseños y expresiones vinculantes**](https://developer.android.com/topic/libraries/data-binding/expressions)
 
-### Importaciones, variables e inclusiones
+### Importaciones
 
 Las importaciones facilitan la referencia de clases dentro de los archivos de diseño. **java.lang.*** se importa automáticamente.
 
@@ -41,9 +44,11 @@ Se pueden usar los tipos importados como referencias de tipo en variables y expr
 
 ```xml
 <data>
-    <import type="com.example.User"/>
+    <import type="com.myapp.data.ViewModel"/>
     <import type="java.util.List"/>
-    <variable name="user" type="User"/>
+    <import type="com.myapp.data.User"/>
+
+    <variable name="viewModel" type="ViewModel"/>
     <variable name="userList" type="List&lt;User>"/>
 </data>
 ```
@@ -54,52 +59,65 @@ Puedes usar los tipos importados para transmitir parte de una expresión:
 Los tipos importados también se pueden usar cuando se hace referencia a campos y métodos estáticos en expresiones:
 ```xml
 <data>
-    <import type="com.example.MyStringUtils"/>
-    <variable name="user" type="com.example.User"/>
+    <import type="com.myapp.MyStringUtils"/>
+    <variable name="user" type="com.myapp.data.User"/>
 </data>
-<TextView android:text="@{MyStringUtils.capitalize(user.lastName)}" />
+<ConstraintLayout>
+    <TextView android:text="@{MyStringUtils.capitalize(user.lastName)}" />
+</ConstraintLayout>
 ```
-Las variables permiten describir una propiedad que puede usarse en expresiones de vinculación:
-```xml
-<data>
-    <import type="android.graphics.drawable.Drawable"/>
-    <variable name="user" type="com.example.User"/>
-    <variable name="image" type="Drawable"/>
-    <variable name="note" type="String"/>
-</data>
-```
+
 Cuando hay conflictos de nombre de clase, una de las clases puede renombrarse con un alias:
 ```xml
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.real.estate.View" alias="Vista"/>
+        <import type="com.myapp.real.estate.View" alias="Vista"/>
     </data>
 ```
+
+### Variables
+
+Las variables permiten describir una propiedad que puede usarse en expresiones de vinculación:
+
+```xml
+<data>
+    <import type="android.graphics.drawable.Drawable"/>
+    <variable name="user" type="com.myapp.data.User"/>
+    <variable name="image" type="Drawable"/>
+    <variable name="note" type="String"/>
+</data>
+```
+
+### Includes
+
 Los includes permiten reutilizar diseños complejos en tu app:
 ```xml
 <data>
-   <variable name="user" type="com.example.User"/>
+   <variable name="viewModel" type="com.myapp.data.ViewModel"/>
 </data>
 <LinearLayout>
-   <include layout="@layout/name" bind:user="@{user}"/>
-   <include layout="@layout/contact" bind:user="@{user}"/>
+   <include layout="@layout/address" bind:user="@{viewModel.address}"/>
+   <include layout="@layout/contact" bind:user="@{viewModel.contact}"/>
 </LinearLayout>
 ```
 
-## Vincular datos
+## Vincular datos (Clases de vinculación generadas)
 
-Para cada archivo de diseño se genera una clase de enlace, esta clase contiene variables de diseño, vistas de diseño y sabe cómo asignar valores para las expresiones de vinculación.
+La biblioteca de vinculación de datos genera **clases de vinculación** que se usan para acceder a las variables y vistas del diseño.
+
+Para cada archivo de diseño se genera una clase de vinculación, esta clase contiene variables de diseño, vistas de diseño y sabe cómo asignar valores para las expresiones de vinculación.
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    // Clase de enlace generada
+    /**
+     *  Binding class generated, for each design file a binding class is generated.
+     */
     val binding: ActivityMainBinding = DataBindingUtil.setContentView(
         this, R.layout.activity_main)
 
-    // Ahora puede acceder a variables de diseño y vistas de diseño.
-    binding.user = User("username", "password")
+    binding.viewModel = viewModel
 }
 ```
 
@@ -116,45 +134,44 @@ val listItemBinding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item
 La vinculación de datos permite escribir eventos de manejo de expresiones que se envían desde las vistas.
 Puedes usar los siguientes mecanismos para manejar un evento:
 
-* **Referencia de métodos**: Los eventos pueden vincularse directamente a los métodos del controlador. Una ventaja importante en comparación con el atributo View de onClick es que la expresión se procesa en el momento de la compilación.
+### Referencia de métodos
+
+Los eventos pueden vincularse directamente a los métodos del controlador. Una ventaja importante en comparación con el atributo View de onClick es que la expresión se procesa en el momento de la compilación.
 
 ```xml
 <layout>
    <data>
-       <variable name="handlers" type="com.example.MyHandlers"/>
-       <variable name="user" type="com.example.User"/>
+       <variable name="viewModel" type="com.myapp.data.ViewModel"/>
+       <variable name="user" type="com.myapp.data.User"/>
    </data>
    <LinearLayout>
        <TextView android:text="@{user.firstName}"
-           android:onClick="@{handlers::onClickFriend}"/>
+           android:onClick="@{viewModel::onClickFriend}"/>
    </LinearLayout>
 </layout>
 ```
 
 ```kotlin
-class MyHandlers {
-    fun onClickFriend(view: View) { /* ... */ }
-}
+fun onClickFriend(view: View) { /* ... */ }
 ```
 
-* **Objetos de escucha**: Son expresiones lambda que se evalúan cuando ocurre el evento. La vinculación de datos siempre crea un objeto de escucha, que se establece en la vista. Cuando se lanza el evento, el objeto de escucha evalúa la expresión lambda.
+### Objetos de escucha
+
+Son expresiones lambda que se evalúan cuando ocurre el evento. La vinculación de datos siempre crea un objeto de escucha, que se establece en la vista. Cuando se lanza el evento, el objeto de escucha evalúa la expresión lambda.
 
 ```xml
 <layout>
     <data>
-        <variable name="task" type="com.android.example.Task" />
-        <variable name="presenter" type="com.android.example.Presenter" />
+        <variable name="viewModel" type="com.myapp.data.ViewModel"/>
     </data>
     <LinearLayout>
-        <Button android:onClick="@{() -> presenter.onSaveClick(task)}" />
+        <Button android:onClick="@{() -> viewModel.onSaveClick()}" />
     </LinearLayout>
 </layout>
 ```
 
 ```kotlin
-class Presenter {
-    fun onSaveClick(task: Task){ /* ... */ }
-}
+fun onSaveClick(){ /* ... */ }
 ```
 
 La diferencia principal entre *referencia de métodos* y *objetos de escucha* es que la implementación real de objetos de escucha se crea cuando se vinculan los datos, no cuando se activa el evento.
@@ -164,20 +181,6 @@ En las vinculaciones de objetos de escucha, solo el valor de resultado debe coin
 
 Los objetos de escucha son similares a las referencias de métodos, pero permiten ejecutar expresiones de vinculación de datos arbitrarias.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Enlaces
 
 
 

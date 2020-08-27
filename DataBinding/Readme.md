@@ -1,24 +1,22 @@
-# Android con Kotlin - DataBinding (Android Jetpack)
+# Android con Kotlin - Data Binding (Biblioteca de Jetpack)
 
-Proyecto con códigos de ejemplo de DataBinding en Android con Kotlin.
+*Proyecto con códigos de ejemplo de biblioteca Data Binding en Android con Kotlin.*
 
-DataBinding forma parte de Android Jetpack y es una biblioteca que permite vincular los componentes de la IU de tus diseños a las fuentes de datos de tu app usando un formato declarativo en lugar de la programación.
+**Data Binding** vincula los componentes de la IU en tus diseños con las fuentes de datos de tu app mediante un formato declarativo.
 
-[**Adaptadores de vinculación**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Adaptadores%20de%20vinculaci%C3%B3n)
+[**DataBinding**]()
 
-[**DataBinding**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding)
+[**Adaptadores de vinculación**]()
 
-[**DataBinding en dos direcciones**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20en%20dos%20direcciones)
+[**DataBinding en dos direcciones**]()
 
-[**DataBinding y Livedata**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20y%20Livedata)
+[**DataBinding y objetos de datos observables**]()
 
-[**DataBinding y objetos de datos observables**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20y%20objetos%20de%20datos%20observables)
+[**DataBinding y ViewModel con LiveData**]()
 
-[**DataBinding y ViewModel**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20y%20ViewModel)
+[**DataBinding y ViewModel Observable**]()
 
-[**DataBinding y ViewModel observable**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20y%20ViewModel%20observable)
-
-[**Diseños y expresiones vinculantes**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Dise%C3%B1os%20y%20expresiones%20vinculantes)
+[**Diseños y expresiones vinculantes**]()
 
 ## Attribution
 

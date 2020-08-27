@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.arbems.databindingbasic.MainViewModel" />
+
         <variable
-            name="User"
-            type="com.arbems.databindingbasic.User" />
+            name="viewModel"
+            type="MainViewModel" />
     </data>
 
 
@@ -15,24 +18,99 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textScoreboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{User.name}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:text="Marcador de fútbol"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textTeam1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="@{User.pass}"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@{viewModel.team1Name}"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTeam1Score" />
+
+        <TextView
+            android:id="@+id/textTeam1Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="@{String.valueOf(viewModel.team1Score)}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/textScoreboard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textScoreboard" />
+
+        <Button
+            android:id="@+id/btnAddTeam1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="@{viewModel::addScoreTeam1}"
+            android:text="+"
+            app:layout_constraintStart_toStartOf="@+id/textTeam1Score"
+            app:layout_constraintTop_toBottomOf="@+id/textTeam2" />
+
+        <TextView
+            android:id="@+id/textTeam2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{viewModel.team2Name}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textTeam2Score" />
+
+        <TextView
+            android:id="@+id/textTeam2Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@{String.valueOf(viewModel.team2Score)}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textScoreboard"
+            app:layout_constraintTop_toBottomOf="@+id/textScoreboard" />
+
+        <Button
+            android:id="@+id/btnAddTeam2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="@{() -> viewModel.addScoreTeam2()}"
+            android:text="+"
+            app:layout_constraintEnd_toEndOf="@+id/textTeam2Score"
+            app:layout_constraintTop_toBottomOf="@+id/textTeam1" />
+
+        <include
+            layout="@layout/contact"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            bind:viewModel="@{viewModel}" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="309dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>
