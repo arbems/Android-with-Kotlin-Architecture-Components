@@ -15,4 +15,7 @@ class MainViewModel: ViewModel() {
         _imageUrl.value = "https://i.imgur.com/tGbaZCY.jpg"
         _paddingLeft.value = 50
     }
+
+
+
 }

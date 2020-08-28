@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DataBindingViewModelAndObserver.iml" filepath="$PROJECT_DIR$/.idea/modules/DataBindingViewModelAndObserver.iml" group="DataBindingViewModelAndObserver" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="DataBindingViewModelAndObserver/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DataBindingViewModelObserver.iml" filepath="$PROJECT_DIR$/.idea/modules/DataBindingViewModelObserver.iml" group="DataBindingViewModelObserver" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="DataBindingViewModelObserver/app" />
     </modules>
   </component>
 </project>
