@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DataBindingAndTwoWay.iml" filepath="$PROJECT_DIR$/.idea/modules/DataBindingAndTwoWay.iml" group="DataBindingAndTwoWay" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="DataBindingAndTwoWay/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Data_Binding_Two_Way.iml" filepath="$PROJECT_DIR$/.idea/modules/Data_Binding_Two_Way.iml" group="Data_Binding_Two_Way" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Data Binding Two Way/app" />
     </modules>
   </component>
 </project>

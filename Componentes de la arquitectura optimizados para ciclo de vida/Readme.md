@@ -1,6 +1,6 @@
 # Android con Kotlin - Componentes de la arquitectura optimizados para ciclo de vida
 
-Código de ejemplo de como gestionar los ciclos de vida con componentes de la arquitectura en Android con Kotlin.
+*Código de ejemplo de como gestionar los ciclos de vida con componentes de la arquitectura en Android con Kotlin.*
 
 Los componentes optimizados para ciclo de vida realizan acciones en respuesta a un cambio en el estado del ciclo de vida de otro componente, como actividades o fragmentos. 
 
@@ -18,9 +18,7 @@ El componente LifeCycle se ocupa de los eventos de Android LifeCycle de un compo
 * LifeCycleObserver
 
 
-#### [Lifecycle](https://developer.android.com/reference/androidx/lifecycle/Lifecycle)
-
-Es una clase que mantiene la información sobre el estado del ciclo de vida de un componente como una actividad o un fragmento. 
+[**Lifecycle**](https://developer.android.com/reference/androidx/lifecycle/Lifecycle) es una clase que mantiene la información sobre el estado del ciclo de vida de un componente como una actividad o un fragmento. 
 
 Un objeto LifeCycle es un objeto que puede recuperar información sobre el ciclo de vida actual de un LifeCycleOwner, normalmente el propietario sería una actividad o un fragmento.
 
@@ -115,11 +113,6 @@ La clase Lifecycle permite que otros objetos consulten el estado actual:
         // ...
     }
 `Dado que varios estados se pueden intercalar para un momento determinado, si queremos verificar un estado específico, siempre usamos el método isAtLeast`
-
-## Enlaces
-
-[Ciclo de vida de una actividad](https://github.com/arbems/Android-with-Kotlin-Activity/tree/master/Ciclo%20de%20vida%20de%20la%20actividad)
-
 
 ## Attribution
 

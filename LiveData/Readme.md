@@ -42,6 +42,16 @@ Una actividad o un fragmento que se vuelve a crear debido a un cambio de configu
 * #### Compartir recursos
 Puedes extender un objeto LiveData con el patrón singleton para unir los servicios del sistema de modo que puedan compartirse en la app. El objeto LiveData se conecta al servicio del sistema una vez y, luego, cualquier observador que necesite el recurso puede simplemente mirar el objeto LiveData.
 
+
+## LiveData VS ObservableFields
+
+A diferencia de los objetos que implementan Observable, como los campos observables, los objetos LiveData conocen el ciclo de vida de los observadores suscritos a los cambios de datos. Tanto LiveData como ObservableFields observan los cambios, sin embargo las ventajas de uno sobre el otro que puedo señalar son:
+
+* **Sin manipulación manual del ciclo de vida**. Los componentes de la interfaz de usuario solo observan datos relevantes y no se detienen ni reanudan la observación. LiveData gestiona automáticamente todo esto, ya que es consciente de los cambios de estado del ciclo de vida relevantes mientras observa.
+* **Más funcionalidad con Transformations y MediatorLiveData**. El uso de LiveData le permitirá beneficiarse del poder de Transformations y también agregar múltiples fuentes a MediatorLiveData . Entonces, si tiene 5 vistas EditText en su diseño, no necesita observar las 5 de su Actividad o Fragmento. Puede observar solo un MediatorLiveData que le ahorrará algunas líneas de códigos y complejidad lógica.
+* **Compartiendo recursos**. La creación de objetos personalizados que amplíen LiveData le permitirá conectarse al servicio del sistema una vez, luego cualquier observador que necesite el recurso puede simplemente observar el objeto.
+
+
 ## Attribution
 
 This code was created by [**arbems**](https://github.com/arbems) in 2020.
