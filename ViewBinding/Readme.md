@@ -1,17 +1,17 @@
-# Android con Kotlin - ViewBinding
+# Android con Kotlin - View Binding
 
-Código de ejemplo de una aplicación simple con ViewBinding en Android con Kotlin.
+*Código de ejemplo de una aplicación simple con View Binding en Android con Kotlin.*
 
-La vinculación de vista es una función que te permite escribir más fácilmente código que interactúa con las vistas.
+View Binding es una función que te permite escribir más fácilmente código que interactúa con las vistas.
 Una vez que la vinculación de vista está habilitada en un módulo, genera una clase de vinculación para cada archivo de diseño XML presente en ese módulo. Una instancia de una clase de vinculación contiene referencias directas a todas las vistas que tienen un ID en el diseño correspondiente.
 
 `Nota: En la mayoría de los casos, la vinculación de vistas reemplaza a findViewById`
 
-En muchos casos, la vinculación de vistas puede proporcionar los mismos beneficios que la vinculación de datos con una implementación más simple y un rendimiento mejor. Si usas la vinculación de datos principalmente para reemplazar las llamadas de *findViewById()*, te recomendamos reemplazarla con la vinculación de vistas.
+En muchos casos, la vinculación de vistas puede proporcionar los mismos beneficios que Data Binding con una implementación más simple y un rendimiento mejor. Si usas Data Binding principalmente para reemplazar las llamadas de *findViewById()*, te recomendamos reemplazarla con View Binding.
 
-#### Configuración de ViewBinding
+#### Configuración de View Binding
 
-La vinculación de vista se habilita módulo por módulo. Para habilitar la vinculación de vista en un módulo, agrega el elemento viewBinding a su archivo build.gradle
+View Binding se habilita módulo por módulo. Para habilitar en un módulo, agrega el elemento viewBinding a su archivo build.gradle
 
     android {
         ...
@@ -20,13 +20,13 @@ La vinculación de vista se habilita módulo por módulo. Para habilitar la vinc
         }
     }
     
-Si deseas que se ignore un archivo de diseño mientras se generan clases de vinculación, agrega el atributo tools:viewBindingIgnore="true"
+Si deseas que se ignore un archivo de diseño mientras se generan clases de vinculación, agrega el atributo **tools:viewBindingIgnore="true"**
 
     <LinearLayout tools:viewBindingIgnore="true" ...></LinearLayout>
 
 #### Uso en actividades y fragmentos
 
-Si se habilita la vinculación de vista para un módulo, se genera una clase de vinculación para cada archivo de diseño XML que contiene el módulo.
+Si se habilita View Binding para un módulo, se genera una clase de vinculación para cada archivo de diseño XML que contiene el módulo.
 
 Cada clase de vinculación contiene referencias a la vista raíz y a todas las vistas que tienen un **ID**.
 
@@ -34,7 +34,8 @@ Cada clase de vinculación contiene referencias a la vista raíz y a todas las v
 val binding = ActivityMainBinding.inflate(layoutInflater)
 ```
 
-Cada clase de vinculación también incluye un método getRoot(), que proporciona una referencia directa para la vista raíz del archivo de diseño correspondiente. En este ejemplo, el método getRoot() de la clase ActivityMainBinding muestra la vista raíz LinearLayout.
+Cada clase de vinculación también incluye un método getRoot(), que proporciona una referencia directa para la vista raíz del archivo de diseño correspondiente. 
+En este ejemplo, el método getRoot() de la clase ActivityMainBinding muestra la vista raíz LinearLayout.
 ```kotlin
 val view = binding.root
 ```
@@ -74,29 +75,29 @@ binding.name.text = "name-text"
 ```
 
 
-### Diferencias ViewBinding y findViewById
+## Diferencias View Binding y findViewById
 
-ViewBinding tiene ventajas importantes frente al uso de findViewById:
+View Binding tiene ventajas importantes frente al uso de findViewById:
 
 * **Seguridad nula**: Debido a que la vinculación de vista crea referencias directas a las vistas, no hay riesgo de una excepción de puntero nulo debido a un ID de vista no válido. Además, cuando una vista solo está presente en algunas configuraciones de un diseño, el campo que contiene su referencia en la clase de vinculación se marca con @Nullable.
 * **Seguridad de tipos**: Los campos de cada clase de vinculación tienen tipos que coinciden con las vistas a las que hacen referencia en el archivo XML. Esto significa que no hay riesgo de una excepción de transmisión de clase.
 
-### Comparación con DataBinding
+## Comparación con Data Binding
 
-ViewBinding y DataBinding generan clases de vinculación que puedes usar para hacer referencia a vistas directamente.
+View Binding y Data Binding generan clases de vinculación que puedes usar para hacer referencia a vistas directamente.
 
-ViewBinding está diseñada para procesar casos de uso más simples y proporciona los siguientes beneficios por sobre DataBinding:
+View Binding está diseñada para procesar casos de uso más simples y proporciona los siguientes beneficios por sobre Data Binding:
 
-- Compilación más rápida: ViewBinding no requiere procesamiento de anotaciones, por lo que los tiempos de compilación son más rápidos.
+* **Compilación más rápida**: View Binding no requiere procesamiento de anotaciones, por lo que los tiempos de compilación son más rápidos.
 
-- Facilidad de uso: ViewBinding no requiere archivos de diseño XML etiquetados especialmente, por lo que es más rápido adoptarlos en tus apps. Una vez que habilites ViewBinding en un módulo, se aplicará automáticamente a todos los diseños de ese módulo.
+* **Facilidad de uso**: View Binding no requiere archivos de diseño XML etiquetados especialmente, por lo que es más rápido adoptarlos en tus apps. Una vez que habilites View Binding en un módulo, se aplicará automáticamente a todos los diseños de ese módulo.
 
 
-En cambio, ViewBinding tiene las siguientes limitaciones en comparación con DataBinding:
+En cambio, View Binding tiene las siguientes limitaciones en comparación con Data Binding:
 
-- ViewBinding no admite variables ni expresiones de diseño, por lo que no se puede usar para declarar contenido de IU dinámico directamente desde archivos de diseño XML.
+* **View Binding no admite variables ni expresiones de diseño**, por lo que no se puede usar para declarar contenido de IU dinámico directamente desde archivos de diseño XML.
 
-- ViewBinding no admite la vinculación de datos bidireccional.
+* **View Binding no admite la vinculación de datos bidireccional**.
 
 
 ## Attribution

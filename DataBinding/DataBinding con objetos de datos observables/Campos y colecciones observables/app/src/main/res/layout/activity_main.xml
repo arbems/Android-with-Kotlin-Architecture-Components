@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="user"
-            type="com.arbems.fieldsandcollectionsobservable.User" />
+            name="viewModel"
+            type="com.arbems.fieldsandcollectionsobservable.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,57 +15,112 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/textView"
+
+        <EditText
+            android:id="@+id/editTextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="82dp"
-            android:text="@{user.firstName}"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:text="@{viewModel.user.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView2"
+        <EditText
+            android:id="@+id/editTexFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@{String.valueOf(user.age)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="First name"
+            android:inputType="textPersonName"
+            android:text="@{viewModel.user.firstName}"
+            app:layout_constraintStart_toStartOf="@+id/editTextName"
+            app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Last name"
+            android:inputType="textPersonName"
+            android:text="@{viewModel.user.lastName}"
+            app:layout_constraintStart_toStartOf="@+id/editTexFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/editTexFirstName" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textViewFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text='@{user.languages["es"]}'
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Full name:"
+            android:textStyle="bold"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textViewFullResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text='@{user.actors[0]}'
+            android:layout_marginStart="16dp"
+            android:text="@{viewModel.user.fullName}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewFull"
+            app:layout_constraintTop_toTopOf="@+id/textViewFull" />
+
+
+        <EditText
+            android:id="@+id/editTextAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="number"
+            android:text='@{(viewModel.user.age > 0) ? String.valueOf(viewModel.user.age) : ""}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewFullResult" />
+
+        <TextView
+            android:id="@+id/textViewYearOfBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Year of birth:"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
+
+        <TextView
+            android:id="@+id/textViewYearOfBirthResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{String.valueOf(viewModel.user.yearOfBirth)}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewYearOfBirth"
+            app:layout_constraintTop_toTopOf="@+id/textViewYearOfBirth" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:onClick="changeUser"
-            android:text="CHANGE"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:onClick="@{() -> viewModel.setUser(editTextName.getText().toString(), editTexFirstName.getText().toString(), editTextLastName.getText().toString(), editTextAge.getText().toString())}"
+            android:text="Update"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewYearOfBirth" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

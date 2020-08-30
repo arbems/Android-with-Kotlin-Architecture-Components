@@ -8,10 +8,11 @@
 
         android {
             ...
+            // deprecated:
             dataBinding {
                 enabled = true
             }
-            // or
+            // correct:
             buildFeatures {
                 dataBinding true
             }

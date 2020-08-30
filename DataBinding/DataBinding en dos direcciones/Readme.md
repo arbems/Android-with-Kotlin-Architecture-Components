@@ -2,7 +2,7 @@
 
 *Código de ejemplo de Data Binding en dos direcciones en Android con Kotlin.*
 
-La biblioteca de vinculación de datos admite la vinculación de datos bidireccional. Admite la capacidad de recibir cambios de datos en una propiedad y, al mismo tiempo, escuchar las actualizaciones de los usuarios a esa propiedad.
+La librería Data Binding admite la vinculación de datos bidireccional. Admite la capacidad de recibir cambios de datos en una propiedad y, al mismo tiempo, escuchar las actualizaciones de los usuarios a esa propiedad.
   
 La vinculación de datos bidireccional, recibe cambios en los datos de la propiedad y escucha las actualizaciones de los usuarios al mismo tiempo.
 
