@@ -13,8 +13,6 @@ class MainViewModel : ViewModel(), Observable {
         set(value) {
             field = value
 
-            fullName = value
-
             notifyPropertyChanged(BR.name)
         }
 
@@ -22,8 +20,6 @@ class MainViewModel : ViewModel(), Observable {
     var firstName: String = ""
         set(value) {
             field = value
-
-            fullName = value
 
             notifyPropertyChanged(BR.firstName)
         }
@@ -33,8 +29,6 @@ class MainViewModel : ViewModel(), Observable {
         set(value) {
             field = value
 
-            fullName = value
-
             notifyPropertyChanged(BR.lastName)
         }
 
@@ -43,28 +37,22 @@ class MainViewModel : ViewModel(), Observable {
         set(value) {
             field = value
 
-            yearOfBirth = value
-
             notifyPropertyChanged(BR.age)
         }
 
     // Fields calculate
-    @get:Bindable
+    @get:Bindable("age")
     var yearOfBirth: Int = 0
-        set(value) {
+        get() {
             LocalDate.now().apply {
-                field = (year - value)
+                return (year - age)
             }
-
-            notifyPropertyChanged(BR.yearOfBirth)
         }
 
-    @get:Bindable
+    @get:Bindable("name", "firstName", "lastName")
     var fullName: String = ""
-        set(value) {
-            field = "${name.capitalize()} ${firstName.capitalize()} ${lastName.capitalize()}"
-
-            notifyPropertyChanged(BR.fullName)
+        get() {
+            return "${name.capitalize()} ${firstName.capitalize()} ${lastName.capitalize()}"
         }
 
     fun setUser(_name: String, _firstName: String, _lastName: String, _age: String) {

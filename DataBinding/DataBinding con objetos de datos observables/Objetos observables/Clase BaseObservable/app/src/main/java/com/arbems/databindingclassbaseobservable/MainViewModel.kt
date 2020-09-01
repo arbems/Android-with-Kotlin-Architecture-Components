@@ -1,6 +1,7 @@
 package com.arbems.databindingclassbaseobservable
 
 import androidx.lifecycle.ViewModel
+import com.arbems.databindingclassbaseobservable.data.User
 
 class MainViewModel : ViewModel() {
 

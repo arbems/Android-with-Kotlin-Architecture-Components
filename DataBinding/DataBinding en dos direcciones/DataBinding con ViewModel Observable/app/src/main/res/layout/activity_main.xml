@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.arbems.databindingviewmodelobservabletwoway.MainViewModel" />
+
+        <!--<import type="com.arbems.databindingviewmodelobservabletwoway.Converter" />-->
+
+        <variable
+            name="viewModel"
+            type="MainViewModel" />
+
+        <!--<variable
+            name="Convert"
+            type="Converter" />-->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.user.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTexFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="First name"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.user.firstName}"
+            app:layout_constraintStart_toStartOf="@+id/editTextName"
+            app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Last name"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.user.lastName}"
+            app:layout_constraintStart_toStartOf="@+id/editTexFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/editTexFirstName" />
+
+        <TextView
+            android:id="@+id/textViewFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Full name:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+
+        <TextView
+            android:id="@+id/textViewFullResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{viewModel.user.fullName}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewFull"
+            app:layout_constraintTop_toTopOf="@+id/textViewFull" />
+
+
+        <EditText
+            android:id="@+id/editTextAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="number"
+            android:text="@={viewModel.user.age}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFullResult" />
+        <!-- Convert.intToString(viewModel.user.age) -->
+
+        <TextView
+            android:id="@+id/textViewYearOfBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Year of birth:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
+
+        <TextView
+            android:id="@+id/textViewYearOfBirthResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{String.valueOf(viewModel.user.yearOfBirth)}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewYearOfBirth"
+            app:layout_constraintTop_toTopOf="@+id/textViewYearOfBirth" />
+
+        <CheckBox
+            android:id="@+id/rememberMeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={viewModel.user.rememberMe}"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="Remember me"
+            android:textColor="#737171"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewYearOfBirth" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.user.rememberMe)}"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/rememberMeCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/rememberMeCheckBox" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

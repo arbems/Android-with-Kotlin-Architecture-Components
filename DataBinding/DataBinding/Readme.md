@@ -22,7 +22,7 @@
 
         apply plugin: 'kotlin-kapt'
   
-## Diseño
+## Layout
   
 ```xml
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -78,7 +78,7 @@ Cuando hay conflictos de nombre de clase, una de las clases puede renombrarse co
 
 ### Variables
 
-Las variables permiten describir una propiedad que puede usarse en expresiones de vinculación:
+Data Binding genera métodos de acceso para cada variable declarada en el diseño. Las variables permiten describir una propiedad que puede usarse en expresiones de vinculación:
 
 ```xml
 <data>
@@ -112,14 +112,31 @@ Para cada archivo de diseño se genera una clase de vinculación, esta clase con
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    /**
-     *  Binding class generated, for each design file a binding class is generated.
-     */
+    // Binding class generated, for each design file a binding class is generated.
     val binding: ActivityMainBinding = DataBindingUtil.setContentView(
         this, R.layout.activity_main)
 
     binding.viewModel = viewModel
 }
+```
+
+Hay otras alternativas para aumentar el diseño, existe una versión alternativa del método inflate() que toma un objeto **ViewGroup** además del **LayoutInflater**:
+
+```kotlin
+val binding: MyLayoutBinding = MyLayoutBinding.inflate(getLayoutInflater(), viewGroup, false)
+```
+
+Si el diseño se aumentó con un mecanismo diferente, se puede vincular por separado:
+
+```kotlin
+val binding: MyLayoutBinding = MyLayoutBinding.bind(viewRoot)
+```
+
+A veces, el tipo de vinculación no se puede conocer de antemano. En esos casos, la vinculación se puede crear utilizando la **clase DataBindingUtil**:
+
+```kotlin
+val viewRoot = LayoutInflater.from(this).inflate(layoutId, parent, attachToParent)
+val binding: ViewDataBinding? = DataBindingUtil.bind(viewRoot)
 ```
 
 Si usas elementos de vinculación de datos dentro de un adaptador **Fragment**, **ListView** o **RecyclerView**, es posible que prefieras usar los métodos inflate() de las clases de vinculación o la clase DataBindingUtil:

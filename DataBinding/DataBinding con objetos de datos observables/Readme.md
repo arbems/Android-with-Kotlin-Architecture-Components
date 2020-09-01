@@ -68,6 +68,8 @@ fun setUser(name: String, firstName: String, lastName: String, age: String) {
 
 ### Colecciones observables
 
+Algunas apps usan estructuras dinámicas para almacenar datos. Las colecciones observables permiten acceder a esas estructuras mediante una clave.
+
 * [**ObservableArrayMap**](https://developer.android.com/reference/android/databinding/ObservableArrayMap?hl=es-419)
 * [**ObservableArrayList**](https://developer.android.com/reference/android/databinding/ObservableArrayList?hl=es-419)
 
@@ -94,9 +96,11 @@ ObservableArrayList<Any>().apply {
 
 ## Objetos observables
 
-#### Interfaz Observable
+### Interfaz Observable
 
 Una clase que implementa la interfaz [**Observable**](https://developer.android.com/reference/android/databinding/Observable) permite registrar objetos de escucha que desean recibir notificaciones de cambios de propiedad en el objeto observable.
+
+La interfaz **Observable** tiene un mecanismo para agregar y quitar objetos de escucha, pero debes decidir cuándo se envían las notificaciones. Para ello, asigna una anotación **@Bindable** al método *get* y llama al método **notifyPropertyChanged()** en el método *set*.
 
 ```kotlin
 class User : Observable {
@@ -108,13 +112,8 @@ class User : Observable {
         set(value) {
             field = value
 
-            fullName = value
-
             // Notifica a los oyentes que una propiedad específica ha cambiado.
             notifyPropertyChanged(BR.name)
-
-            // Notifica a los oyentes que todas las propiedades de esta instancia han cambiado.
-            // notifyChange()
         }
 
     @get:Bindable
@@ -122,20 +121,7 @@ class User : Observable {
         set(value) {
             field = value
 
-            yearOfBirth = value
-
             notifyPropertyChanged(BR.age)
-        }
-
-    // Calculated fields
-    @get:Bindable
-    var yearOfBirth: Int = 0
-        set(value) {
-            LocalDate.now().apply {
-                field = (year - value)
-            }
-
-            notifyPropertyChanged(BR.yearOfBirth)
         }
 
     override fun addOnPropertyChangedCallback(
@@ -160,20 +146,19 @@ class User : Observable {
 }
 ```
 
-#### Clase BaseObservable
+### Clase BaseObservable
 
-La interfaz **Observable** tiene un mecanismo para agregar y quitar objetos de escucha, pero debes decidir cuándo se envían las notificaciones. Para facilitar el desarrollo, **Data Binding** proporciona la clase [**BaseObservable**](https://developer.android.com/reference/android/databinding/BaseObservable), que implementa el mecanismo de registro del objeto de escucha. La clase de datos que implementa **BaseObservable** es responsable de notificar cuándo cambian las propiedades. Para ello, asigna una anotación Bindable al método get y llama al método notifyPropertyChanged() en el método set, como se muestra en el siguiente ejemplo:
+Para facilitar el desarrollo, **Data Binding** proporciona la clase [**BaseObservable**](https://developer.android.com/reference/android/databinding/BaseObservable), que implementa el mecanismo de registro del objeto de escucha. 
+
+La clase de datos que implementa **BaseObservable** es responsable de notificar cuándo cambian las propiedades. Para ello, asigna una anotación **@Bindable** al método *get* y llama al método **notifyPropertyChanged()** en el método *set*, como se muestra en el siguiente ejemplo:
 
 ```kotlin
 class User() : BaseObservable() {
-    // La anotación Bindable se debe aplicar a cualquier método de acceso getter de una clase Observable.
-    // Bindable generará un campo en la clase BR para identificar el campo que ha cambiado.
+
     @get:Bindable
     var name: String = ""
         set(value) {
             field = value
-
-            fullName = value
 
             // Notifica a los oyentes que una propiedad específica ha cambiado.
             notifyPropertyChanged(BR.name)
@@ -184,20 +169,7 @@ class User() : BaseObservable() {
         set(value) {
             field = value
 
-            yearOfBirth = value
-
             notifyPropertyChanged(BR.age)
-        }
-
-    // Calculated fields
-    @get:Bindable
-    var yearOfBirth: Int = 0
-        set(value) {
-            LocalDate.now().apply {
-                field = (year - value)
-            }
-
-            notifyPropertyChanged(BR.yearOfBirth)
         }
 }
 ```

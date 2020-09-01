@@ -8,7 +8,7 @@
 
 [**DataBinding**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding)
 
-[**DataBinding y objetos de datos observables**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20y%20objetos%20de%20datos%20observables)
+[**DataBinding y objetos de datos observables**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20con%20objetos%20de%20datos%20observables)
 
 [**DataBinding en dos direcciones**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20en%20dos%20direcciones)
 

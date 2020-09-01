@@ -4,10 +4,11 @@ import androidx.databinding.ObservableArrayMap
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
+import com.arbems.fieldsandcollectionsobservable.data.User
 
 class MainViewModel : ViewModel() {
 
-    var user : User = User(
+    val user : User = User(
         ObservableField<String>(""),
         ObservableField<String>(""),
         ObservableField<String>(""),
