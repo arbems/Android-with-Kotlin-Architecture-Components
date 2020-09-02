@@ -38,6 +38,16 @@ class User {
     private val _age = MutableLiveData<Int>(0)
     val age: LiveData<Int> get() = _age
 
+    // Usually, MutableLiveData is used in ViewModel and, then, ViewModel only exposes immutable LiveData objects to Observers.
+    private val _rememberMe = MutableLiveData<Boolean>(false)
+    val rememberMe: LiveData<Boolean> get() = _rememberMe
+
+    // Methods
+    fun rememberMeChanged() {
+        // The call to setValue() activates Observers and update the UI.
+        _rememberMe.value = rememberMe.value == false
+    }
+
     // Calculated fields
     val yearOfBirth: LiveData<Int> = Transformations.map(_age) { age ->
         val year = LocalDate.now().year

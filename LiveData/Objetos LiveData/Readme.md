@@ -1,12 +1,17 @@
 # Android con Kotlin - Objetos LiveData
 
-*Código de ejemplo de como trabajar con objetos LiveData en Android con Kotlin.*
+*Este ejemplo muestra las siguientes características de [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData?hl=es-419)*:
+
+* Crear objetos LiveData
+* Observar objetos LiveData
+* Actualizar objetos LiveData
+* Integración con ViewModel
+
+# Documentación
 
 ## Crear objetos LiveData
 
-### LiveData 
-
-[**LiveData**](https://developer.android.com/reference/androidx/lifecycle/LiveData) es una clase contenedora de datos que se pueden observar dentro de un ciclo de vida determinado.
+**LiveData** es una clase contenedora de datos que se pueden observar dentro de un ciclo de vida determinado.
 
 * Los objetos **LiveData** van normalmente en el ViewModel, puede usar con cualquier dato, incluidos los objetos que implementan Collections.
 ```kotlin
@@ -57,14 +62,6 @@ _rememberMe.value = newRememberMe
 ```
 `Nota: Debes llamar al método setValue(T) para actualizar el objeto LiveData del subproceso principal. Si el código se ejecuta en un subproceso del trabajador, puedes usar el método postValue(T) en su lugar para actualizar el objeto LiveData.`
 
-
-## Reference
-
-androidx.lifecycle.LiveData\<T>
-
-androidx.lifecycle.LifecycleOwner
-
-androidx.lifecycle.Observer\<T>
 
 ## Attribution
 

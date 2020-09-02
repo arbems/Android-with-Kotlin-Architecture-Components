@@ -111,16 +111,48 @@
             app:layout_constraintStart_toEndOf="@+id/textViewYearOfBirth"
             app:layout_constraintTop_toTopOf="@+id/textViewYearOfBirth" />
 
+        <CheckBox
+            android:id="@+id/rememberMeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:checked="@{viewModel.user.rememberMe}"
+            android:onCheckedChanged="@{() -> viewModel.user.rememberMeChanged()}"
+            android:text="Remember me"
+            app:layout_constraintStart_toStartOf="@+id/textViewYearOfBirth"
+            app:layout_constraintTop_toBottomOf="@+id/textViewYearOfBirth" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{String.valueOf(viewModel.user.rememberMe)}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Remember me: "
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/rememberMeCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/rememberMeCheckBox" />
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="40dp"
             android:onClick="@{() -> viewModel.setUser(editTextName.getText().toString(), editTexFirstName.getText().toString(), editTextLastName.getText().toString(), editTextAge.getText().toString())}"
             android:text="Update"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewYearOfBirth" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <Button
             android:id="@+id/button2"

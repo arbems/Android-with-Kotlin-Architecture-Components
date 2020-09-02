@@ -1,20 +1,22 @@
 # Android con Kotlin - LiveData (Biblioteca de Jetpack - Lifecycle)
 
-*Proyecto con códigos de ejemplos de LiveData en Android con Kotlin.*
+*Proyecto con códigos de ejemplos de [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData?hl=es-419) en Android con Kotlin.*
 
-[**LiveData**](https://developer.android.com/reference/androidx/lifecycle/LiveData?hl=es-419) es una clase de contenedor de datos que se puede observar dentro de un ciclo de vida determinado.
+**LiveData** es una clase de contenedor de datos que se puede observar dentro de un ciclo de vida determinado.
 
 [**Corrutinas con LiveData**]()
 
 [**Extender LiveData**]()
 
-[**LiveData con Room**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/LiveData%20con%20Room)
+[**LiveData con Room**]()
 
-[**LiveData y DataBinding**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/LiveData%20y%20DataBinding)
+[**LiveData y DataBinding**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Vincular%20vistas%20de%20dise%C3%B1o%20con%20componentes%20de%20arquitectura/DataBinding%20con%20ViewModel%20y%20LiveData)
 
 [**Objetos LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/Objetos%20LiveData)
 
 [**Transformar LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/Transformar%20LiveData)
+
+# Documentación
 
 **LiveData** es una clase contenedora de datos y tienen la capacidad de ser observable, está optimizada para ciclos de vida, lo que significa que respeta el ciclo de vida de otros componentes de las apps, como actividades, fragmentos o servicios. De esta forma, LiveData solo notificará a los observadores de componentes suscritos si estos están activos. También incluye lógica de limpieza para evitar las fugas de objetos y el consumo de memoria excesivo.
 
@@ -43,7 +45,7 @@ Una actividad o un fragmento que se vuelve a crear debido a un cambio de configu
 Puedes extender un objeto LiveData con el patrón singleton para unir los servicios del sistema de modo que puedan compartirse en la app. El objeto LiveData se conecta al servicio del sistema una vez y, luego, cualquier observador que necesite el recurso puede simplemente mirar el objeto LiveData.
 
 
-## LiveData VS ObservableFields
+## LiveData VS Observable Object
 
 A diferencia de los objetos que implementan [**Observable**](https://developer.android.com/reference/android/databinding/Observable), como los campos observables, los objetos [**LiveData**](https://developer.android.com/reference/androidx/lifecycle/LiveData?hl=es-419) conocen el ciclo de vida de los observadores suscritos a los cambios de datos. Tanto LiveData como ObservableFields observan los cambios, sin embargo las ventajas de uno sobre el otro que puedo señalar son:
 
