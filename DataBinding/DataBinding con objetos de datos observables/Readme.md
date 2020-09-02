@@ -1,6 +1,12 @@
 # Android con Kotlin - Data Binding y objetos de datos observables
 
-*Código de ejemplo de Data Binding y objetos de datos observables en Android con Kotlin.*
+*Este ejemplo muestra las siguientes características de [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*:
+
+* Variables y expresiones de diseño
+* Observabilidad a través de Observable Fields y Objetos Observables (BaseObservable class, Observable interface)
+* Integración perfecta con ViewModel
+
+# Documentación
 
 La observabilidad es la capacidad de un objeto para notificar a otros sobre cambios en sus datos. La biblioteca de vinculación de datos te permite hacer que objetos, campos o colecciones sean observables.
 
@@ -8,7 +14,7 @@ Se puede usar cualquier objeto para la vinculación de datos, pero modificar el 
 
 Cuando uno de esos objetos de datos observables está vinculado a la IU y una propiedad del objeto de datos cambia, la IU se actualiza automáticamente.
 
-## Campos observables
+## Observable Fields
 
 Crear clases que implementen la interfaz Observable requiere un poco de trabajo. Hacerlo no valdría la pena si las clases solo tuvieran unas pocas propiedades. 
 En este caso, se pueden usar clases de campo observables en lugar de crear un objeto observable, usa la **clase genérica Observable** y **clases primitivas específicas** para que los campos sean observables:
@@ -96,7 +102,7 @@ ObservableArrayList<Any>().apply {
 
 ## Objetos observables
 
-### Interfaz Observable
+### Observable interface
 
 Una clase que implementa la interfaz [**Observable**](https://developer.android.com/reference/android/databinding/Observable) permite registrar objetos de escucha que desean recibir notificaciones de cambios de propiedad en el objeto observable.
 
@@ -146,7 +152,7 @@ class User : Observable {
 }
 ```
 
-### Clase BaseObservable
+### BaseObservable class
 
 Para facilitar el desarrollo, **Data Binding** proporciona la clase [**BaseObservable**](https://developer.android.com/reference/android/databinding/BaseObservable), que implementa el mecanismo de registro del objeto de escucha. 
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.arbems.bindingadapters.data.MainViewModel
 import com.arbems.bindingadapters.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

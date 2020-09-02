@@ -1,8 +1,16 @@
-# Android con Kotlin - Data Binding - Vinculación de datos bidireccional
+# Android con Kotlin - Data Binding - Vinculación de datos en dos direcciones
 
-*Código de ejemplo de vinculación de datos bidireccional usando Data Binding en Android con Kotlin.*
+*Este ejemplo muestra las siguientes características de [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*:
 
-La librería Data Binding admite la vinculación de datos bidireccional. Admite la capacidad de recibir cambios de datos en una propiedad y, al mismo tiempo, escuchar las actualizaciones de los usuarios a esa propiedad.
+* Variables y expresiones de diseño
+* Vinculación de datos en dos direcciones
+* Observabilidad a través de objetos Observables (BaseObservable class)
+* Integración perfecta con ViewModel
+
+## Documentación
+
+**Data Binding Library** admite la vinculación de datos en dos direcciones. 
+Tiene capacidad de recibir cambios de datos en una propiedad y, al mismo tiempo, escuchar las actualizaciones de los usuarios a esa propiedad.
   
 La notación **@={}**, que incluye el signo **"="**:
 ```xml

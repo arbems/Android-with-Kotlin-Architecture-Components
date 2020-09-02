@@ -1,6 +1,13 @@
 # Android con Kotlin - Data Binding
 
-*Código de ejemplo de una aplicación simple con Data Binding en Android con Kotlin.*
+*Este ejemplo muestra las siguientes características de [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*:
+
+* Configuración de Data Binding
+* Diseño de vista, importaciones, variables e includes
+* Clase de vinculación
+* Manejo de eventos
+
+# Documentación
 
 ## Configuración de Data Binding
 
@@ -21,8 +28,10 @@
 * Para poder usar bibliotecas como Dagger o Data Binding en sus proyectos de Kotlin añade:
 
         apply plugin: 'kotlin-kapt'
-  
-## Layout
+
+## Diseño de vista, importaciones, variables e includes
+
+### Diseño de vista
   
 ```xml
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -102,7 +111,7 @@ Los includes permiten reutilizar diseños complejos en tu app:
 </LinearLayout>
 ```
 
-## Vincular datos (Clases de vinculación generadas)
+## Clases de vinculación
 
 La biblioteca de vinculación de datos genera **clases de vinculación** que se usan para acceder a las variables y vistas del diseño.
 

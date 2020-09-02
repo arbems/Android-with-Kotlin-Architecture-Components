@@ -2,7 +2,7 @@
 
 *Proyecto con códigos de ejemplo de librería Data Binding en Android con Kotlin.*
 
-**Data Binding** vincula los componentes de la IU en tus diseños con las fuentes de datos de tu app mediante un formato declarativo.
+**Data Binding Library** vincula los componentes de la IU en tus diseños con las fuentes de datos de tu app mediante un formato declarativo.
 
 [**Adaptadores de vinculación**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Adaptadores%20de%20vinculaci%C3%B3n)
 

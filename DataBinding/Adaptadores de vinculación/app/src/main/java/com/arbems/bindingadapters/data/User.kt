@@ -14,7 +14,9 @@ class User() : BaseObservable(), Serializable {
             _firstName: String,
             _lastName: String,
             _age: Int,
-            _height: Double
+            _height: Double,
+            _currency: Float,
+            _imageUrl: String
         ): User {
             val user = User()
             user.name = _name
@@ -22,6 +24,8 @@ class User() : BaseObservable(), Serializable {
             user.lastName = _lastName
             user.age = _age
             user.height = _height
+            user.currency = _currency
+            user.imageUrl = _imageUrl
 
             return user
         }
@@ -68,6 +72,22 @@ class User() : BaseObservable(), Serializable {
             field = value
 
             notifyPropertyChanged(BR.height)
+        }
+
+    @get:Bindable
+    var currency: Float = 1.0F
+        set(value) {
+            field = value
+
+            notifyPropertyChanged(BR.currency)
+        }
+
+    @get:Bindable
+    var imageUrl: String = ""
+        set(value) {
+            field = value
+
+            notifyPropertyChanged(BR.imageUrl)
         }
 
     // Fields calculates
