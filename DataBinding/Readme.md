@@ -12,7 +12,7 @@
 
 [**DataBinding en dos direcciones**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/DataBinding%20en%20dos%20direcciones)
 
-[**Diseños y expresiones vinculantes**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Dise%C3%B1os%20y%20expresiones%20vinculantes)
+[**Expresiones de diseño**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Expresiones%20de%20dise%C3%B1o)
 
 [**Vincular vistas de diseño con componentes de arquitectura**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/DataBinding/Vincular%20vistas%20de%20dise%C3%B1o%20con%20componentes%20de%20arquitectura)
 

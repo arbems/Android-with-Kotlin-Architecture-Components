@@ -3,7 +3,7 @@
 *Este ejemplo muestra las siguientes características del [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*
 
 * Variables y expresiones de diseño
-* Observabilidad a través de ViewModel Observable
+* Observabilidad a través de objetos Observables (clase baseObservable)
 * Integración perfecta con ViewModel
 
 ## Attribution

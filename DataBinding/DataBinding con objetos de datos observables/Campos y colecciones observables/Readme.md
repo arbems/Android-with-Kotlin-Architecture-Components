@@ -1,4 +1,4 @@
-# Android con Kotlin - Data Binding y observabilidad a través de Observable Fields
+# Android con Kotlin - Data Binding - Implementación de campos observables
 
 *Este ejemplo muestra las siguientes características de [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*:
 

@@ -3,7 +3,7 @@
 *Este ejemplo muestra las siguientes características del [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*
 
 * Variables y expresiones de diseño
-* Observabilidad a través de objetos LiveData
+* Observabilidad a través de LiveData
 * Integración perfecta con ViewModel
 
 ## Attribution
