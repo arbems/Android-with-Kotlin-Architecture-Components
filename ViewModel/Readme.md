@@ -1,6 +1,6 @@
 # Android con Kotlin - ViewModel (Biblioteca de Jetpack - Lifecycle)
 
-*Proyecto con ejemplos de código de ViewModel en Android con Kotlin.*
+*Proyecto con ejemplos de código de [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) en Android con Kotlin.*
 
 **ViewModel** es una clase que se encarga de preparar y administrar los datos de una actividad o un fragmento.
 
@@ -10,7 +10,7 @@
 
 [**ViewModel KTX**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/ViewModel%20KTX)
 
-[**Usar corrutinas con ViewModel**]()
+[**Corrutinas con ViewModel**]()
 
 [**ViewModel**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/ViewModel)
 
