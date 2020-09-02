@@ -1,8 +1,15 @@
 # Android con Kotlin - ViewModels - Android KTX
 
-Android KTX es un conjunto de extensiones de Kotlin que se incluyen con Android Jetpack y otras bibliotecas de Android. Las extensiones KTX proporcionan Kotlin conciso e idiomático a Jetpack, la plataforma de Android y otras API.
+*Este ejemplo muestra las siguientes características de [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)*:
 
-## ViewModels
+* Uso de artifact-ktx para ViewModel
+
+# Documentación
+
+Android KTX es un conjunto de extensiones de Kotlin que se incluyen con Android Jetpack y otras bibliotecas de Android. 
+Las extensiones KTX proporcionan Kotlin conciso e idiomático a Jetpack, la plataforma de Android y otras API.
+
+## ViewModel
 
 ### Activity KTX
 

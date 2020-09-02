@@ -1,10 +1,15 @@
 # Android con Kotlin - ViewModel
 
-*Código de ejemplo de una aplicación simple con ViewModel en Android con Kotlin.*
-                                                                                                  
+*Este ejemplo muestra las siguientes características de [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)*:
+
+* Implementación de un ViewModel
+* 
+
+# Documentación
+
 La clase [**ViewModel**](https://developer.android.com/reference/androidx/lifecycle/ViewModel) está diseñada para almacenar y administrar los datos para una Activity o un Fragment de manera optimizada para los ciclos de vida, lo cual permite que los datos sobrevivan a cambios de configuración. También maneja la comunicación de la Activity / Fragment con el resto de la aplicación (por ejemplo, llamando a las clases de lógica de negocios).
 
-## Implementar un ViewModel
+## Implementación de un ViewModel
 
 Los componentes de arquitectura proporcionan una clase de ayuda llamada ViewModel para el controlador de IU que es responsable de preparar los datos de la IU. Para crear un ViewModel hay que heredar de esta clase:
 
@@ -101,19 +106,6 @@ Pero si un propietario se destruye y no se va a volver a crear, entonces se llam
 
 
 
-
-
-## Reference
-
-androidx.lifecycle.ViewModel
-
-androidx.lifecycle.ViewModelProvider
-
-androidx.lifecycle.ViewModelStore
-
-androidx.lifecycle.ViewModelStoreOwner
-
-androidx.lifecycle.ViewModelProvider.Factory
 
 ## Attribution
 

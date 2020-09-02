@@ -1,10 +1,11 @@
-# Android con Kotlin - Ciclo de vida de un ViewModel 
+# Android con Kotlin - Ciclo de vida de un ViewModel
 
-*Código de ejemplo de una aplicación simple que muestra ciclos de vida de un ViewModel en Android con Kotlin.*
+*Este ejemplo muestra las siguientes características de [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)*:
+
 * Muestra como un ViewModel resiste a los cambios de configuración.
 * Muestra como un ViewModel existe a partir de la primera solicitud hasta que la actividad se termina y se destruye.
-  
-<br/>
+
+# Documentación
                                                                                                  
 El alcance de los objetos [**ViewModel**](https://developer.android.com/topic/libraries/architecture/viewmodel) se determina según el [**Lifecycle**](https://developer.android.com/reference/androidx/lifecycle/Lifecycle) transferido al [**ViewModelProvider**](https://developer.android.com/reference/androidx/lifecycle/ViewModelProvider) cuando recibe el ViewModel.
 El ViewModel permanece en la memoria hasta que el Lifecycle que determina su alcance desaparece permanentemente. En el caso de una actividad, cuando termina; en el caso de un fragmento, cuando es separado.

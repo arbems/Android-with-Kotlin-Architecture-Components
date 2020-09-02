@@ -4,7 +4,7 @@
 
 **LiveData** es una clase de contenedor de datos que se puede observar dentro de un ciclo de vida determinado.
 
-[**Corrutinas con LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Corrutinas%20con%20LiveData)
+[**Corrutinas con LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Corrutinas%20con%20ViewModel%20y%20LiveData)
 
 [**Extender LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/Extender%20LiveData)
 
