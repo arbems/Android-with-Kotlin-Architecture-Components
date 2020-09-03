@@ -1,4 +1,4 @@
-# Android con Kotlin - Data Binding con ViewModel Observable
+# Android con Kotlin - Data Binding con ViewModel y LiveData
 
 *Este ejemplo muestra las siguientes características del [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)*
 
