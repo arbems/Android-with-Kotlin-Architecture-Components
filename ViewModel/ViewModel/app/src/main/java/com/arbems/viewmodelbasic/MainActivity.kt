@@ -8,24 +8,40 @@ import androidx.lifecycle.ViewModelProvider
 class MainActivity : AppCompatActivity() {
 
     /**
-     * Declaring ViewModel
+     * Declara ViewModel
      */
     private lateinit var viewModel: MainViewModel
-    // or using activity-ktx artifact
-    val viewModel2 by viewModels<MainViewModel>()
+    private lateinit var viewModel2: AndroidViewModel
+
+    /**
+     * Obtener ViewModel usando activity-ktx artifact
+     * */
+    private val viewModel3 by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         /**
-         * Get a instance of exist viewModel or create a new one.
+         * Obtiene una instancia de ViewModel existente o crea uno nuevo
          *
-         * Returns an existing ViewModel or creates a new one in the scope (usually, a fragment or an activity), associated with this ViewModelProvider.
-         * And will remain as long as the scope is active (for example, if it's an activity, until it ends, or the process is finished).
+         * Asigna un alcance a un ViewModel mediante ViewModelStoreOwner
          */
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // or
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel2 = ViewModelProvider(this)[AndroidViewModel::class.java]
+
+
+
+        /**
+         * Recuperar un ViewModelStore de la actividad
+         * */
+        viewModelStore.apply {
+            viewModel
+            viewModel2
+            viewModel3
+            savedInstanceState
+            //...
+        }
     }
 }

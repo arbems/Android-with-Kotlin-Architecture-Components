@@ -2,7 +2,7 @@
 
 *Proyecto con ejemplos de código de [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) en Android con Kotlin.*
 
-**ViewModel** es una clase que se encarga de preparar y administrar los datos de una actividad o un fragmento.
+**ViewModel** es una clase que se encarga de preparar y administrar los datos de una actividad o un fragmento de manera optimizada para los ciclos de vida.
 
 [**Ciclo de vida de un ViewModel**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/ViewModel/Ciclo%20de%20vida%20de%20un%20ViewModel)
 

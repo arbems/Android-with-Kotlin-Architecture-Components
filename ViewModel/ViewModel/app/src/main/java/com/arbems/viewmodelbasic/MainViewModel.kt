@@ -4,10 +4,7 @@ import androidx.lifecycle.ViewModel
 import android.util.Log
 
 /**
- * ViewModel is a class what is responsible for preparing and managing the data for an Activity or a Fragment
- *
- * A ViewModel should never reference a view, Lifecycle, or class that can reference the context of the activity.
- * ViewModel's sole responsibility is to manage the data for the UI.
+ * Crea un ViewModel
  */
 
 class MainViewModel: ViewModel() {
