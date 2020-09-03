@@ -1,6 +1,12 @@
 # Android con Kotlin - Componentes de la arquitectura optimizados para ciclo de vida
 
-*Código de ejemplo de como gestionar los ciclos de vida con componentes de la arquitectura en Android con Kotlin.*
+*Proyecto con códigos de ejemplo de [Lifecycle Library](https://developer.android.com/topic/libraries/architecture/lifecycle) en Android con Kotlin.*
+
+* Gestionar los ciclos de vida con componentes de la arquitectura
+
+# Documentación
+
+**Lifecycle** compila componentes optimizados para ciclos de vida que puedan ajustar el comportamiento según el estado actual del ciclo de vida de una actividad o un fragmento.
 
 Los componentes optimizados para ciclo de vida realizan acciones en respuesta a un cambio en el estado del ciclo de vida de otro componente, como actividades o fragmentos. 
 

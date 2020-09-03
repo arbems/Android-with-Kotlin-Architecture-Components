@@ -1,6 +1,6 @@
 # Android con Kotlin - LiveData (Biblioteca de Jetpack - Lifecycle)
 
-*Proyecto con códigos de ejemplos de [LiveData](https://developer.android.com/reference/androidx/lifecycle/LiveData?hl=es-419) en Android con Kotlin.*
+*Proyecto con códigos de ejemplos de [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) en Android con Kotlin.*
 
 **LiveData** es una clase de contenedor de datos que se puede observar dentro de un ciclo de vida determinado.
 
@@ -14,7 +14,7 @@
 
 [**Objetos LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/Objetos%20LiveData)
 
-[**Transformar LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/Transformar%20LiveData)
+[**Transformar LiveData**](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/LiveData/Transformations%20LiveData)
 
 # Documentación
 

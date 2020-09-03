@@ -1,4 +1,6 @@
-# Android con Kotlin - Work (Android Jetpack)
+# Android con Kotlin - Work manager (Android Jetpack)
+
+*Proyecto con códigos de ejemplos de [Work manager](https://developer.android.com/topic/libraries/architecture/workmanager) en Android con Kotlin.*
 
 Programa y ejecuta tareas en segundo plano diferibles y basadas en restricciones.
 

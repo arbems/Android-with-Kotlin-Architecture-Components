@@ -1,15 +1,22 @@
 # Android con Kotlin - View Binding
 
-*Código de ejemplo de una aplicación simple con View Binding en Android con Kotlin.*
+*Proyecto con códigos de ejemplos de [View Binding](https://developer.android.com/topic/libraries/view-binding) en Android con Kotlin.*
 
-View Binding es una función que te permite escribir más fácilmente código que interactúa con las vistas.
+* Configuración de View Binding
+* Uso en actividades y fragmentos
+* Diferencias View Binding y findViewById
+* Comparación con Data Binding
+
+# Documentación
+
+**View Binding** es una función que te permite escribir más fácilmente código que interactúa con las vistas.
 Una vez que la vinculación de vista está habilitada en un módulo, genera una clase de vinculación para cada archivo de diseño XML presente en ese módulo. Una instancia de una clase de vinculación contiene referencias directas a todas las vistas que tienen un ID en el diseño correspondiente.
 
 `Nota: En la mayoría de los casos, la vinculación de vistas reemplaza a findViewById`
 
 En muchos casos, la vinculación de vistas puede proporcionar los mismos beneficios que Data Binding con una implementación más simple y un rendimiento mejor. Si usas Data Binding principalmente para reemplazar las llamadas de *findViewById()*, te recomendamos reemplazarla con View Binding.
 
-#### Configuración de View Binding
+### Configuración de View Binding
 
 View Binding se habilita módulo por módulo. Para habilitar en un módulo, agrega el elemento viewBinding a su archivo build.gradle
 
@@ -24,7 +31,7 @@ Si deseas que se ignore un archivo de diseño mientras se generan clases de vinc
 
     <LinearLayout tools:viewBindingIgnore="true" ...></LinearLayout>
 
-#### Uso en actividades y fragmentos
+### Uso en actividades y fragmentos
 
 Si se habilita View Binding para un módulo, se genera una clase de vinculación para cada archivo de diseño XML que contiene el módulo.
 
