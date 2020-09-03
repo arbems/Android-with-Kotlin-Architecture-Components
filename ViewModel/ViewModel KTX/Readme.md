@@ -13,7 +13,7 @@ Las extensiones KTX proporcionan Kotlin conciso e idiomático a Jetpack, la plat
 
 ### Activity KTX
 
-Devuelve un delegado [Lazy] para acceder al ViewModel de ComponentActivity, si se especifica [factoryProducer], entonces [ViewModelProvider.Factory] devuelto por él se utilizará para crear [ViewModel] la primera vez:
+Devuelve un delegado **Lazy** para acceder al ViewModel de ComponentActivity, si se especifica **factoryProducer**, entonces **ViewModelProvider.Factory** devuelto por él se utilizará para crear **ViewModel** la primera vez:
 ```kotlin
 val viewModel: SharedViewModel by viewModels()
 ```
@@ -28,7 +28,7 @@ Puedes vincular a un ViewModel en una línea utilizando los delegados de propied
  
 **Fragment.activityViewModels(noinline factoryProducer: (() -> Factory)? = null)**
 
-Devuelve un delegado de propiedad para acceder al [ViewModel] de la actividad principal, si se especifica [factoryProducer], entonces [ViewModelProvider.Factory] devuelto por él se utilizará para crear [ViewModel] la primera vez. De lo contrario, se utilizará [androidx.activity.ComponentActivity.getDefaultViewModelProviderFactory] de la actividad:
+Devuelve un delegado de propiedad para acceder al **ViewModel** de la actividad principal, si se especifica **factoryProducer**, entonces **ViewModelProvider.Factory** devuelto por él se utilizará para crear **ViewModel** la primera vez. De lo contrario, se utilizará **androidx.activity.ComponentActivity.getDefaultViewModelProviderFactory** de la actividad:
 ```kotlin
 val viewModel: MyViewModel by activityViewModels()
 // or
@@ -40,7 +40,7 @@ val viewModel by activityViewModels<MyViewModel>()
          noinline factoryProducer: (() -> Factory)? = null
      )**
 
-Devuelve un delegado de propiedad para acceder a [ViewModel] de forma **predeterminada** en el ámbito de este [Fragmento]:
+Devuelve un delegado de propiedad para acceder a **ViewModel** de forma **predeterminada** en el ámbito de este **Fragmento**:
 ```kotlin
 val viewModel: MyViewModel by viewModels()
 // or 

@@ -2,7 +2,7 @@
 
 *Este ejemplo muestra las siguientes características de [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)*:
 
-* Muestra comunicación entre diferentes Fragmentos de una Actividad con ViewModel
+* Comunicación entre diferentes fragmentos de una actividad con ViewModel
 
 # Documentación
 
@@ -10,7 +10,7 @@ Es muy común que dos o más fragmentos de una actividad necesiten comunicarse e
 
 Para solucionar esta dificultad habitual, puedes usar objetos ViewModel. 
 
-ViewModels se puede utilizar como capa de comunicación entre diferentes Fragmentos de una Actividad. Cada Fragmento puede adquirir ViewModel usando la misma clave a través de su Actividad. Esto permite la comunicación entre Fragmentos de forma desacoplada de modo que nunca necesiten hablar directamente con el otro Fragmento.
+ViewModel se puede utilizar como capa de comunicación entre diferentes Fragmentos de una Actividad. Cada Fragmento puede adquirir ViewModel usando la misma clave a través de su Actividad. Esto permite la comunicación entre Fragmentos de forma desacoplada de modo que nunca necesiten hablar directamente con el otro Fragmento.
 
 **Ventajas de este enfoque:**
 
@@ -52,9 +52,6 @@ private val viewModel: SharedViewModel by activityViewModels()
 
 
 `Ten en cuenta que ambos fragmentos recuperan la actividad que los contiene. De esa manera, cuando cada fragmento obtiene el ViewModelProvider, reciben la misma instancia SharedViewModel, cuyo alcance está determinado por esta actividad.`
-
-ViewModels también se puede usar como una capa de comunicación entre diferentes fragmentos de una actividad. Cada fragmento puede adquirir el ViewModel usando la misma clave a través de su actividad. Esto permite la comunicación entre los Fragmentos de forma desacoplada, de modo que nunca necesitan hablar directamente con el otro fragmento.
-
 
 
 
