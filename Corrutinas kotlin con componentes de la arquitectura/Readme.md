@@ -1,14 +1,20 @@
 # Android con Kotlin - Corrutinas kotlin con componentes de la arquitectura
 
-Una **corrutina** es un patrón de diseño de simultaneidad que puedes usar en Android para simplificar el código que se ejecuta de forma asíncrona.
+*Proyecto con códigos de ejemplo de [Corrutinas]() en Android con Kotlin.*
 
-En Android, las corrutinas ayudan a administrar tareas de larga duración que, de lo contrario, podrían bloquear el subproceso principal y hacer que tu app dejara de responder.
+# Documentación:
 
-Las corrutinas son la solución recomendada para la programación asíncrona en Android. Por las siguientes razones:
+Las **corrutinas** de Kotlin proporcionan una API que te permite escribir código asíncrono. 
+Puedes definir un **CoroutineScope**, lo que te ayuda a administrar cuándo deben ejecutarse las corrutinas. 
+Cada operación asíncrona se ejecuta dentro de un alcance particular.
 
-* **Ligereza**: Puedes ejecutar muchas corrutinas en un solo subproceso debido a la compatibilidad con la *suspensión*, que no bloquea el subproceso en el que se ejecuta la corrutina. Ahora, la suspensión ahorra más memoria que el bloqueo y admite muchas operaciones simultáneas.
+En Android, las corrutinas ayudan a administrar tareas de larga duración que, de lo contrario, podrían bloquear el subproceso principal y hacer que una app dejara de responder.
 
-* **Menos fugas de memoria**: Usa la simultaneidad estructurada para ejecutar operaciones dentro de un alcance.
+Las corrutinas son la solución recomendada para la **programación asíncrona en Android**. Por las siguientes razones:
+
+* **Ligereza**: Puedes ejecutar muchas corrutinas en un solo subproceso debido a la compatibilidad con la **suspensión**, que no bloquea el subproceso en el que se ejecuta la corrutina. Ahora, la suspensión ahorra más memoria que el bloqueo y admite muchas operaciones simultáneas.
+
+* **Menos fugas de memoria**: Usa la *simultaneidad estructurada* para ejecutar operaciones dentro de un alcance.
 
 * **Compatibilidad con cancelación incorporada**: Se propaga automáticamente la cancelación a través de la jerarquía de corrutinas en ejecución.
 
