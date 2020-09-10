@@ -2,12 +2,136 @@
 
 *Este ejemplo muestra las siguientes características de [Corrutinas]()*:
 
-* Agregar dependencias de KTX
-* Iniciar corrutina en el alcance de un ViewModel
-* Iniciar corrutina en el alcance de un Lifecycle
-* Suspender corrutinas optimizadas para ciclos de vida
+* Coroutine Context
+* Coroutine Builder
+* Coroutine Scope
 
 # Documentación
+
+Es posible crear corrutinas dentro de otra corrutina sin ninguna limitación. Por lo tanto, una corrutina puede tener muchas corrutinas “hijas”, y éstas a su vez pueden tener más corrutinas “hijas” y así infinitamente.
+
+## Coroutine Context
+
+## Coroutine Builder
+
+Los constructores de corrutinas.
+
+### runBlocking
+
+Crea una corrutina y suspende el hilo que lo ejecuta hasta que la corrutina finalice. Este constructor no debe ser usado nunca, excepto para hacer pruebas unitarias de nuestras suspend functions o para usarlo en el método main para jugar con las corrutinas.
+
+Debido a que **runBlocking** no es una función de extensión de la interface *CoroutineScope*, se puede usar en el interior de cualquier función.
+
+```kotlin
+fun main() {
+    println("Start")
+
+    runBlocking {
+        println("Before delay.")
+        delay(1000)
+        println("After delay.")
+    }
+
+    println("End")
+}
+// print: Start, Before delay, After delay y End.
+```
+
+Al ejecutar el código anterior se puede observar que aparentemente todo se realizó secuencialmente. Lo que en realidad pasa al crear una corrutina con *runBlocking* es que el hilo que la crea esperará a que la corrutina finalice para continuar con la ejecución en la línea que está inmediatamente después. Es decir, no imprime la palabra *End* hasta que la corrutina creada con runBlocking acabe su ejecución.
+
+### launch
+
+Este constructor crea una corrutina devolviendo un objeto de tipo **Job**.
+
+Debido a que este constructor es una función de extensión de la interface **CoroutineScope**, se puede llamar solamente desde adentro de una corrutina o dentro de una *suspend function*. 
+
+Se utiliza para hacer tareas que no requieren la devolución de ningún valor.
+
+```kotlin
+fun main() {
+    println("Start")
+
+    GlobalScope.launch {
+        println("Before delay.")
+        delay(5000)
+        println("After delay.")
+    }
+
+    println("End")
+    Thread.sleep(6000)
+}
+// print: Start, End, Before delay y After delay.
+```
+
+### async
+
+Este constructor crea una corrutina devolviendo un objeto de tipo `Deferred<T>` siendo T el tipo de dato esperado. 
+
+Se puede llamar solamente desde adentro de una corrutina o dentro de una *suspend function*.
+
+Se utiliza para hacer tareas que requieren la devolución de algún valor.
+
+*Deferred* es un “envoltorio” que va a contener el dato requerido al finalizar la ejecución de la corrutina. Para acceder a este dato será necesario hacer una llamada a la función `await` que provee el *objeto Deferred*. A su vez, *Deferred* es un tipo especial de *Job*, por lo que se podrá manipular igual que el *Job* devuelto por el constructor *launch*.
+
+Para ello nos valemos del ejemplo con el constructor *runBlocking* y creamos una nueva corrutina con el constructor **async** adentro de ésta.
+La manera de obtener el valor con la llamada `await()`.
+
+```kotlin
+fun main() = runBlocking<Unit> {
+    val time = measureTimeMillis {
+        val one = async { doSomethingUsefulOne() }
+        val two = async { doSomethingUsefulTwo() }
+        println("The answer is ${one.await() + two.await()}")
+    }
+    println("Completed in $time ms")
+}
+```
+
+Aunque el constructor **async** no bloquea ni suspende la ejecución del hilo que crea la corrutina, al haber hecho la llamada a `await()` el hilo quedará suspendido en esa línea a la espera del valor de la variable
+
+### produce
+
+Este constructor crea una corrutina que se utiliza para la comunicación por medio de canales (Channels) con otras corrutinas.
+
+Su implementación puede ser un poco compleja.
+
+
+
+## Coroutine Scope 
+
+Las corrutinas siempre se ejecutan en algún contexto representado por un valor del tipo **CoroutineContext**.
+
+Cada vez que usamos un constructor de corrutinas en realidad estamos haciendo una llamada a una función que recibe como primer parámetro un objeto de tipo **CoroutineContext**.
+
+Lo que hace el modificador **suspend** es restringir que esa función solo pueda ser llamada desde adentro del bloque de una *corrutina* o dentro de otra *suspend function*.
+
+Los constructores `launch` y `async` son en realidad funciones de extensión de la interface **CoroutineScope**. 
+Mientras que el constructor `runBlocking` no es una función de extensión de *CoroutineScope*. Por ésto es que las llamadas a los constructores *launch* y *async* solo son posibles dentro del Scope de una corrutina.
+
+Cada vez que se crea una corrutina con cualquiera de los constructores, se crea un Scope para esa corrutina. Este Scope hereda el contexto de la corrutina que la contiene, a menos que especifiquemos explícitamente dicho contexto en forma de parámetro cuando se hace la llamada al constructor.
+
+
+
+
+
+
+
+
+
+
+
+## Conceptos
+
+### Bloquear o suspender hilo
+
+Bloquear un hilo significa que el hilo se mantendrá fuera de uso mientras este encuentre algo que lo bloquee. 
+Por el contrario, suspender un hilo significa que el hilo estará libre y listo para ser usado en la ejecución de otras tareas mientras se encuentra a la espera de la liberación de un recurso.
+
+### Thread.sleep vs. delay
+
+La función `sleep` bloquea el hilo. La función `delay`, por el contrario, sí utiliza el modificador **suspend**, por lo que una llamada a esta función suspende el hilo.
+
+
 
 ## Alcance o ámbitos de corrutinas optimizados para ciclos de vida
 
@@ -43,7 +167,7 @@ class MyViewModel: ViewModel() {
 ### LifecycleScope
 
 Se definen para un objeto **Lifecycle**.
-Se cancelan todas las corrutinas iniciadas en este alcance cuando se destruye el *Lifecycle*. Puedes acceder al **CoroutineScope** de *Lifecycle* mediante las propiedades `lifecycle.coroutineScope` o `lifecycleOwner.lifecycleScope`.
+Se cancelan todas las corrutinas iniciadas en este alcance cuando se destruye el *Lifecycle*. Puedes acceder al **CoroutineScope** de *Lifecycle* mediante las propiedades `lifecycle.corrutinaScope` o `lifecycleOwner.lifecycleScope`.
 
 ```kotlin
 class MyFragment: Fragment() {

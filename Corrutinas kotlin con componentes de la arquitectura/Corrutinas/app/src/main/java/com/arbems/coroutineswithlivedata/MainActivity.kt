@@ -6,9 +6,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlin.coroutines.ContinuationInterceptor
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +24,18 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener {
             viewModel.onSubmitClicked(editTextUserName.text.toString(), editTextPassword.text.toString())
         }
+
+
+        runBlocking() {
+            val context = this.coroutineContext
+            val job = context[Job]
+            val continuationInterceptor = context[ContinuationInterceptor]
+            val coroutineExceptionHandler = context[CoroutineExceptionHandler]
+            val coroutineName = context[CoroutineName]
+        }
+
+
+
     }
 
 }
