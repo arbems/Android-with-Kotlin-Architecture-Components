@@ -17,7 +17,7 @@ Cada corrutina en Kotlin tiene un **contexto** que está representado por una in
 println("My context is: $coroutineContext")
 ```
 
-Todos los constructores de corrutinas, como *launch* y *async*, aceptan un parámetro opcional de **CoroutineContext** que se puede utilizar para especificar explícitamente el [CoroutineDispatcher](https://kotlin.github.io/kotlinx.corrutinas/kotlinx-corrutinas-core/kotlinx.corrutinas/-corrutina-dispatcher/index.html) para la nueva corrutina y otros elementos de contexto como el [Job](https://kotlin.github.io/kotlinx.corrutinas/kotlinx-corrutinas-core/kotlinx.corrutinas/-job/index.html) de la corrutina, handleException o el nombre de la corrutina.
+Todos los constructores de corrutinas, como *launch* y *async*, aceptan un parámetro opcional de **CoroutineContext** que se puede utilizar para especificar explícitamente el [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) para la nueva corrutina y otros elementos de contexto como el [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html) de la corrutina, [handleException](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html) o el nombre de la corrutina.
 
 Podemos usar el operador **+** para definir el *conjunto de elementos* para un contexto:
 
@@ -27,7 +27,7 @@ launch(Dispatchers.Default + job + handleException + CoroutineName("test")) { }
 
 ## [interface CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/)
 
-**CoroutineContext** es un *indexed set* de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.corrutinas/-corrutina-context/-element/). Un conjunto indexado es una mezcla entre un set y un map. Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.corrutinas/-corrutina-context/-key.html).
+**CoroutineContext** es un *indexed set* de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-element/). Un conjunto indexado es una mezcla entre un set y un map. Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-key.html).
 
 <img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0002.png" width="600" /><br>
 
