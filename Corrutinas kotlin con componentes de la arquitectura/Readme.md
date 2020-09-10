@@ -2,9 +2,9 @@
 
 *Proyecto con códigos de ejemplo de [Corrutinas]() en Android con Kotlin.*
 
-#### [Coroutines]()
+#### [Coroutines](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines)
 
-#### [Coroutines con LiveData]()
+#### [Coroutines con LiveData](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Usar%20corrutinas%20con%20LiveData)
 
 # Documentación:
 

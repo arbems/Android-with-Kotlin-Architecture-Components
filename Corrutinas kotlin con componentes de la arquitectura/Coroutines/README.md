@@ -1,9 +1,13 @@
 # Programando con lenguaje Kotlin - Corrutinas
 
+# Documentación
+
 * [Context]()
 * [Scope]()
 * [Builders]()
 * [Funciones de suspensión]()
+
+![scheme coroutines kotlin](https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0001.png)
 
 # Context
 
@@ -25,7 +29,7 @@ launch(Dispatchers.Default + job + handleException + CoroutineName("test")) { }
 
 **CoroutineContext** es un *indexed set* de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.corrutinas/-corrutina-context/-element/). Un conjunto indexado es una mezcla entre un set y un map. Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.corrutinas/-corrutina-context/-key.html).
 
-<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/0001.png" width="600" /><br>
+<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0002.png" width="600" /><br>
 
 **Keys** que nos sirven para obtener los cuatro *Element* de nuestro **CoroutineContext**:
 
@@ -54,7 +58,7 @@ Una corrutina padre siempre espera la finalización de todos sus hijos. Un padre
 El **Dispatcher** de corrutina determina qué hilo o hilos utiliza la correspondiente corrutina para su ejecución.
 Puede limitar la ejecución de corrutinas a un hilo específico, enviarlo a un grupo de hilos o dejar que se ejecute *unconfined*.
 
-<img src="https://raw.githubusercontent.com/arbems/Kotlin-Programming-Language/master/src/coroutines/coroutineContextAndDispatchers/0001.png" witdh="600"/>
+<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0003.png" witdh="600"/>
 
 Object Dispatcher agrupa varias implementaciones de *CoroutineDispatcher*:
 
