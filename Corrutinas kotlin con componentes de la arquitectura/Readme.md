@@ -2,7 +2,7 @@
 
 *Proyecto con códigos de ejemplo de [Corrutinas]() en Android con Kotlin.*
 
-#### [Coroutines](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines)
+#### []()
 
 #### [Coroutines con LiveData](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Usar%20corrutinas%20con%20LiveData)
 
@@ -63,16 +63,16 @@ println("My context is: $coroutineContext")
 | **Key**      |  **Element**      | **Descripción**  
 | ------------- | ------------- | -------------
 | [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)                                                   |              |  Obtenemos el **Job** de la corrutina a la que se asocia el contexto.
-| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)                                            |              |  Obtenemos el **CoroutineDispatcher** de la corrutina a la que se asocia el contexto.
+| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)                                            |              |  Obtenemos el [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) de la corrutina a la que se asocia el contexto.
 | [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)     |              |  Obtenemos el **manejador de excepciones** de la corrutina a la que se asocia el contexto. 
 | [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)                              |              |  Obtenemos el **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración. 
 
 El contexto de la corrutina es inmutable, pero puede agregar elementos a un contexto usando el operador `plus`.
 Podemos combinar elementos de un contexto con los elementos de otro contexto gracias al operador `plus`, devolviendo un nuevo contexto que contiene los elementos combinados.
 
-### [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)
+### Job
 
-**Job** es parte del contexto. Una corrutina en sí misma está representada por un *Job*. Es responsable del ciclo de vida, la cancelación y las relaciones entre padres e hijos de la corrutina.
+Un [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html) es parte del contexto. Una corrutina en sí misma está representada por un *Job*. Es responsable del ciclo de vida, la cancelación y las relaciones entre padres e hijos de la corrutina.
 
 Los **Jobs** se pueden organizar en jerarquías de padres e hijos donde la cancelación de un padre conduce a la cancelación inmediata de todos sus hijos de forma recursiva.<br>
 
@@ -82,19 +82,34 @@ Sin embargo, cuando se utiliza [GlobalScope](https://kotlin.github.io/kotlinx.co
 
 Una corrutina padre siempre espera la finalización de todos sus hijos. Un padre no tiene que rastrear explícitamente a todos los hijos que lanza, y no tiene que usar Job.join para esperarlos al final.
 
-### [Dispatchers](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/index.html)
+### CoroutineDispatcher
 
-El **Dispatcher** de corrutina determina qué hilo o hilos utiliza la correspondiente corrutina para su ejecución.
+[CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) es la clase base que se ampliará con todas las implementaciones de *dispatcher* de corrutina.
+
+```kotlin
+abstract class CoroutineDispatcher : ContinuationInterceptor
+```
+
+Los [Dispatchers](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/index.html) agrupa varias implementaciones de *CoroutineDispatcher*:
+
+```kotlin
+val Default: CoroutineDispatcher
+val IO: CoroutineDispatcher
+val Main: CoroutineDispatcher
+val Unconfined: CoroutineDispatcher
+```
+
+Un *Dispatcher* de corrutina determina qué hilo o hilos utiliza la correspondiente corrutina para su ejecución.<br>
 Puede limitar la ejecución de corrutinas a un hilo específico, enviarlo a un grupo de hilos o dejar que se ejecute *unconfined*.
-
-**Dispatchers** agrupa varias implementaciones de CoroutineDispatcher:
 
 | **Nombre**      | **Hilo utilizado**    | **Nº máximo de hilos**        | **Útil**
 | ------------- | ------------- | ---------------- | ---------------------------------------------------
-| [Dispatchers.Default]()        |  [Grupo de hilos]()          | [Nº de CPU cores]() | Ejecutando código que use CPU
-| [Dispatchers.IO]()       | [Grupo de hilos]()    | [Por defecto: max(64, nº cpu cores)]() | Ejecutando codigo pesado de IO
-| [Dispatchers.Main]()     | [Principal]() | [1(normalmente)]()  | Trabajando con elementos UI
-| [Dispatchers.Unconfined]() | []()           | []() | 
+| [Dispatchers.Default]()        | Grupo de hilos                       | Nº de CPU cores                    | Ejecutando código que use CPU
+| [Dispatchers.IO]()             | Grupo de hilos                       | Por defecto: max(64, nº cpu cores) | Ejecutando codigo pesado de IO
+| [Dispatchers.Main]()           | Principal                            | 1(normalmente)                     | Trabajando con elementos UI
+| [Dispatchers.Unconfined]()     | Sin especificar                      |                                    | 
+| [runBlocking { ... }]()        | Hilo actual (normalmente principal)  | 1                                  | Bloqueo y suspensión de bloque
+| [runBlockingTest { ... }]()    | Hilo de Test                         | 1                                  | Unicamente en Test
 
 
 
@@ -114,9 +129,13 @@ Es apropiado para corrutinas que no consumen tiempo de CPU ni actualizan ningún
 * Si el código es intensivo en CPU. Es decir, el código realiza cálculos (CPU), *Dispatchers.Default* es apropiado ya que está respaldado por un grupo de hilos con tantos hilos como núcleos de CPU.
 * El código es intensivo en IO. Es decir, el código se comunica a través de la red / archivo (IO). *Dispatchers.IO* es apropiado.
 
-### [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)
+### CoroutineExceptionHandler
 
-### [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)
+[CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)
+
+### CoroutineName
+
+[CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)
 
 Los identificadores asignados automáticamente son buenos cuando las corrutinas se registran con frecuencia y solo necesita correlacionar los registros que provienen de la misma corrutina. Sin embargo, cuando una corrutina está vinculada al procesamiento de una solicitud específica o al realizar alguna tarea específica en segundo plano, es mejor nombrarla explícitamente para fines de depuración. El elemento de contexto CoroutineName tiene el mismo propósito que el nombre del hilo. Se incluye en el nombre del hilo que está ejecutando esta corrutina cuando el modo de depuración está activado.
 
@@ -143,7 +162,7 @@ Si alguna de las corrutinas arroja una excepción no controlada, su *Job* princi
 
 
 
-## Coroutine Builders
+# Coroutine Builder
 
 Funciones del constructor de corrutinas:
 
