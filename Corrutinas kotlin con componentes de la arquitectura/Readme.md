@@ -25,7 +25,7 @@ Las corrutinas son la solución recomendada para la **programación asíncrona e
 Desde el punto de vista del rendimiento, las coroutines permiten la ejecución de miles y hasta millones de hilos concurrentemente con un uso de recursos eficiente haciendo más robusta la aplicación al ser más difícil de alcanzar un error que indique falta de memoria.
 
 
-![scheme coroutines kotlin](https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0001.png)
+![scheme coroutines kotlin](https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/0001.png)
 
 # Coroutine Context
 
@@ -58,14 +58,16 @@ println("My context is: $coroutineContext")
 
 **CoroutineContext** es un *indexed set* de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-element/). Un conjunto indexado es una mezcla entre un set y un map. Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-key.html).
 
-<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0002.png" width="600" /><br>
+<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/0002.png" width="600" /><br>
 
 **Keys** que nos sirven para obtener los cuatro *Element* de nuestro **CoroutineContext**:
 
-* [**Job**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html): Obtenemos el **Job** de la corrutina a la que se asocia el contexto.
-* [**ContinuationInterceptor**](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/): Obtenemos el **CoroutineDispatcher** de la corrutina a la que se asocia el contexto.
-* [**CoroutineExceptionHandler**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html): Obtenemos el **manejador de excepciones** de la corrutina a la que se asocia el contexto.
-* [**CoroutineName**](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html): Obtenemos el **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración.
+| **Key**      | **Descripción**
+| ------------- | -------------
+| [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)                           |  Obtenemos el **Job** de la corrutina a la que se asocia el contexto.
+| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)       |  Obtenemos el **CoroutineDispatcher** de la corrutina a la que se asocia el contexto.
+| [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)     |  Obtenemos el **manejador de excepciones** de la corrutina a la que se asocia el contexto. 
+| [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)                 |  Obtenemos el **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración. 
 
 El contexto de la corrutina es inmutable, pero puede agregar elementos a un contexto usando el operador `plus`.
 Podemos combinar elementos de un contexto con los elementos de otro contexto gracias al operador `plus`, devolviendo un nuevo contexto que contiene los elementos combinados.
@@ -87,22 +89,31 @@ Una corrutina padre siempre espera la finalización de todos sus hijos. Un padre
 El **Dispatcher** de corrutina determina qué hilo o hilos utiliza la correspondiente corrutina para su ejecución.
 Puede limitar la ejecución de corrutinas a un hilo específico, enviarlo a un grupo de hilos o dejar que se ejecute *unconfined*.
 
-<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/Coroutines/0003.png" witdh="600"/>
+**Dispatchers** agrupa varias implementaciones de CoroutineDispatcher:
 
-Object Dispatcher agrupa varias implementaciones de *CoroutineDispatcher*:
+| **Nombre**      | **Hilo utilizado**    | **Nº máximo de hilos**        | **Útil**
+| ------------- | ------------- | ---------------- | ---------------------------------------------------
+| [Dispatchers.Default]()        |  [Grupo de hilos]()          | [Nº de CPU cores]() | Ejecutando código que use CPU
+| [Dispatchers.IO]()       | [Grupo de hilos]()    | [Por defecto: max(64, nº cpu cores)]() | Ejecutando codigo pesado de IO
+| [Dispatchers.Main]()     | [Principal]() | [1(normalmente)]()  | Trabajando con elementos UI
+| [Dispatchers.Unconfined]() | []()           | []() | 
 
-* **Dispatchers.Default**: *CoroutineDispatcher* por defecto que utilizan todos los constructores estándar como launch, async, etc. si no se especifica un dispatcher ni ningún otro *ContinuationInterceptor* en su contexto. Utiliza un grupo común de subprocesos en segundo plano compartidos. Ésta es una opción adecuada para corrutinas informáticas intensivas que consumen recursos de la CPU, como cálculos, algoritmos, etc.
 
-* **Dispatchers.IO**: *CoroutineDispatcher* que está diseñado para descargar tareas de E/S de bloqueo a un grupo compartido de subprocesos. En general, todas las tareas que bloquearán el hilo mientras esperan la respuesta de otro sistema: peticiones al servidor, acceso a la base de datos, sitema de archivos, sensores etc.
 
-* **Dispatchers.Main**: *CoroutineDispatcher* que se limita al subproceso principal que opera con objetos de IU. Por lo general, estos *Dispatchers* son de un solo subproceso.
+* **Dispatchers.Default**: *CoroutineDispatcher* por defecto, que utilizan todos los constructores como launch, async, etc. si no se especifica un dispatcher ni ningún otro *ContinuationInterceptor* en su contexto. 
+Utiliza un grupo común de hilos compartidos en segundo plano. Esta es una opción adecuada para corrutinas informáticas intensivas que consumen recursos de la CPU, como cálculos, algoritmos, etc.
 
-* **Dispatchers.Unconfined**: *CoroutineDispatcher* que inicia una corrutina en el hilo del llamador, pero solo hasta el primer punto de suspensión. Después de la suspensión, reanuda la corrutina en el hilo que está totalmente determinada por la función de suspensión que se invocó. Es apropiado para corrutinas que no consumen tiempo de CPU ni actualizan ningún dato compartido (como la interfaz de usuario) confinado a un hilo específico. *Dispatchers.Unconfined* no debe usarse en código general.
+* **Dispatchers.IO**: *CoroutineDispatcher* que está diseñado para descargar tareas de E/S de bloqueo a un grupo compartido de hilos. En general, todas las tareas que bloquearán el hilo mientras esperan la respuesta de otro sistema: peticiones al servidor, acceso a la base de datos, sitema de archivos, sensores etc.
 
-Elegir el **Dispatcher** incorrecto puede reducir o anular la efectividad de la corrutina, a tener en cuenta para elegir *Dispatcher*:
+* **Dispatchers.Main**: *CoroutineDispatcher* que se limita al hilo principal que opera con objetos de IU. Por lo general, estos *Dispatchers* son de un solo hilo.
+
+* **Dispatchers.Unconfined**: *CoroutineDispatcher* que inicia una corrutina en el hilo del llamador, pero solo hasta el primer punto de suspensión. Después de la suspensión, reanuda la corrutina en el hilo que está totalmente determinada por la función de suspensión que se invocó. 
+Es apropiado para corrutinas que no consumen tiempo de CPU ni actualizan ningún dato compartido (como la interfaz de usuario) confinado a un hilo específico. *Dispatchers.Unconfined* no debe usarse en código general.
+
+**Elegir el Dispatcher incorrecto** puede reducir o anular la efectividad de la corrutina, a tener en cuenta para elegir *Dispatcher*:
 
 * Si el código interactúa con los elementos de la interfaz de usuario, *Dispatchers.Main* es apropiado.
-* Si el código es intensivo en CPU. Es decir, el código realiza cálculos (CPU), *Dispatchers.Default* es apropiado ya que está respaldado por un grupo de subprocesos con tantos subprocesos como núcleos de CPU.
+* Si el código es intensivo en CPU. Es decir, el código realiza cálculos (CPU), *Dispatchers.Default* es apropiado ya que está respaldado por un grupo de hilos con tantos hilos como núcleos de CPU.
 * El código es intensivo en IO. Es decir, el código se comunica a través de la red / archivo (IO). *Dispatchers.IO* es apropiado.
 
 ### [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)
@@ -136,7 +147,7 @@ Si alguna de las corrutinas arroja una excepción no controlada, su *Job* princi
 
 Funciones del constructor de corrutinas:
 
-| **Name**      | **Result**    | **Scope**        | **Description**
+| **Nombre**      | **Resultado**    | **Scope**        | **Descripción**
 | ------------- | ------------- | ---------------- | ---------------------------------------------------
 | [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)        |  [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)          | [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) | Lanza una corrutina que no tiene ningún resultado
 | [async](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html)       | [Deferred](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/index.html)    | [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) | Devuelve un solo valor con el resultado futuro
