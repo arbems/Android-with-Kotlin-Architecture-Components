@@ -75,6 +75,10 @@ Podemos combinar elementos de un contexto con los elementos de otro contexto gra
 
 Un [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html) es parte del contexto. Una corrutina en sí misma está representada por un *Job*. Es responsable del ciclo de vida, la cancelación y las relaciones entre padres e hijos de la corrutina.
 
+```kotlin
+interface Job : Element
+```
+
 Los **Jobs** se pueden organizar en jerarquías de padres e hijos donde la cancelación de un padre conduce a la cancelación inmediata de todos sus hijos de forma recursiva.<br>
 
 Cuando se lanza una corrutina en el *CoroutineScope* de otra corrutina, hereda su contexto a través de *CoroutineScope.coroutineContext* y el trabajo de la nueva corrutina se convierte en un elemento secundario del trabajo de la corrutina principal. Cuando se cancela la corrutina principal, todos sus elementos secundarios también se cancelan de forma recursiva.
@@ -85,22 +89,36 @@ Una corrutina padre siempre espera la finalización de todos sus hijos. Un padre
 
 ### CoroutineDispatcher
 
-[CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) es la clase base que se usara con todas las implementaciones de un *dispatcher* de corrutina.
+[CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) es la clase base que se usara con todas las implementaciones de [Dispatchers](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/index.html) de corrutina.
 
+*ContinuationInterceptor*:
+```kotlin
+interface ContinuationInterceptor : Element
+```
+*CoroutineDispatcher* extiende *ContinuationInterceptor*:
 ```kotlin
 abstract class CoroutineDispatcher : ContinuationInterceptor
 ```
 
-Los [Dispatchers](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/index.html) agrupa varias implementaciones de *CoroutineDispatcher*:
+*Dispatchers* imprementan *CoroutineDispatcher*:
 
 ```kotlin
 val Default: CoroutineDispatcher
+```
+
+```kotlin
 val IO: CoroutineDispatcher
+```
+
+```kotlin
 val Main: CoroutineDispatcher
+```
+
+```kotlin
 val Unconfined: CoroutineDispatcher
 ```
 
-Un *Dispatcher* de corrutina determina qué hilo o hilos utiliza la correspondiente corrutina para su ejecución.<br>
+Un **Dispatcher** de corrutina determina qué hilo o hilos utiliza la correspondiente corrutina para su ejecución.<br>
 Puede limitar la ejecución de corrutinas a un hilo específico, enviarlo a un grupo de hilos o dejar que se ejecute *unconfined*.
 
 | **Nombre**      | **Hilo utilizado**    | **Nº máximo de hilos**        | **Útil**
@@ -133,11 +151,23 @@ Es apropiado para corrutinas que no consumen tiempo de CPU ni actualizan ningún
 
 [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html) es un elemento opcional en el contexto de corrutina para manejar excepciones no detectadas.
 
+```kotlin
+interface CoroutineExceptionHandler : Element
+```
+
 Normalmente, las excepciones no detectadas solo pueden resultar de las corrutinas *root* creadas con el constructor *launch*.
 
 ### CoroutineName
 
 [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html) es el nombre de corrutina especificado por el usuario. Este nombre se utiliza en modo de depuración.
+
+```kotlin
+abstract class AbstractCoroutineContextElement : Element
+```
+
+```kotlin
+data class CoroutineName : AbstractCoroutineContextElement
+```
 
 Los identificadores asignados automáticamente son buenos cuando las corrutinas se registran con frecuencia y solo necesita correlacionar los registros que provienen de la misma corrutina.
 
@@ -174,11 +204,136 @@ Funciones del constructor de corrutinas:
 
 ### launch
 
-Se define como función de extensión en *CoroutineScope* y toma un *CoroutineContext* como parámetro, por lo que en realidad toma dos contextos de corrutina (una del parámetro y otro del *CoroutineScope*).
+Lanza una nueva corrutina sin bloquear el hilo actual y devuelve una referencia a la corrutina como un *Job*. La corrutina se cancela cuando se cancela el *Job* resultante.
+Si el contexto no tiene ningún *dispatcher* ni ningún otro *ContinuationInterceptor*, se utiliza *Dispatchers.Default*.
+
+**launch** es una función de extensión de *CoroutineScope* y toma un *CoroutineContext* como parámetro:
+
+```kotlin
+fun CoroutineScope.launch(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit
+): Job (source)
+```
+
+Realmente toma dos contextos de corrutina (una del parámetro y otro del *CoroutineScope*).
 Estos se fusionan usando el operador `plus`, produciendo una unión de sus elementos, de modo que los elementos en el parámetro de contexto tienen prioridad sobre los elementos del *CoroutineScope*.
 
 ### async
 
+Crea una corrutina y devuelve su resultado futuro como una implementación de [Deferred](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/index.html) que es un *Job* con un resultado exitoso o fallido del cálculo que se llevó a cabo.
+
+```kotlin
+fun <T> CoroutineScope.async(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> T
+): Deferred<T> (source)
+```
+
+```kotlin
+interface Deferred<out T> : Job
+```
 
 ### produce
+
+[produce](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html#:~:text=Launches%20a%20new%20coroutine%20to,elements%20produced%20by%20this%20coroutine.) lanza una nueva corrutina para producir un flujo de valores enviándolos a un canal y devuelve una referencia a la corrutina como un *ReceiveChannel*. Este objeto resultante se puede utilizar para recibir elementos producidos por esta corrutina.
+
+### runBlocking
+
+[runBlocking](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) ejecuta una nueva corrutina y bloquea el hilo actual de forma ininterrumpida hasta su finalización. Esta función no debe utilizarse desde una corrutina. 
+Está diseñado para conectar el código de bloqueo regular con las bibliotecas que están escritas en estilo de suspensión, para ser utilizadas en funciones principales y en pruebas.
+
+```kotlin
+fun main() = runBlocking { // this: CoroutineScope
+    launch { // context of the parent, main runBlocking coroutine
+        println("main runBlocking: I'm working in thread ${Thread.currentThread().name}")
+    }
+}
+```
+
+`Nota: No se suele usar en producción.`
+
+
+## Funciones de suspensión
+
+Una *función de suspensión* es simplemente una función que se puede pausar y reanudar en un momento posterior. Pueden ejecutar una operación de larga duración y esperar a que se complete sin bloquear. 
+
+La sintaxis de una función de suspensión es similar a la de una función regular, excepto por la adición de la palabra clave `suspend`. 
+
+```kotlin
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 12
+}
+```
+
+Funciones de suspensión de nivel superior:
+
+| **Nombre**      | **Descripción**
+| ------------- | -------------
+| [delay]()             |  Non-blocking sleep
+| [yield]()             | 
+| [withContext]()       |  Cambia a un contexto diferente
+| [withTimeout]()       | 
+| [withTimeoutOrNull]() | 
+| [awaitAll]()          | 
+| [joinAll]()           | 
+
+
+
+
+
+### delay
+
+Retrasa la rutina durante un tiempo determinado sin bloquear un hilo y la reanuda después de un tiempo especificado. 
+Esta función de suspensión es cancelable. Si el trabajo de la corrutina actual se cancela o se completa mientras esta función de suspensión está esperando, esta función se reanuda inmediatamente con *CancellationException*.
+
+#### delay vs Thread.Sleep
+
+`delay()` es como un `Thread.sleep()`, pero mejor: no bloquea un hilo, solo suspende la corrutina en sí.
+
+```kotlin
+fun main() = runBlocking {
+    val list = listOf(11, 5, 3, 8, 1, 9, 6, 2)
+
+    val time = measureTimeMillis {
+
+        list.map { value ->
+             async {
+                 delay(2000L)
+                 println("Processing value $value")
+                 value
+             }
+        }.awaitAll()
+    }
+
+    println("Processed in $time ms")
+} // print: Processed in 2019 ms
+```
+
+```kotlin
+fun main() = runBlocking {
+    val list = listOf(11, 5, 3, 8, 1, 9, 6, 2)
+
+    val time = measureTimeMillis {
+
+        list.map { value ->
+             async {
+                 Thread.sleep(2000L)
+                 println("Processing value $value")
+                 value
+             }
+        }.awaitAll()
+    }
+
+    println("Processed in $time ms")
+} // print: Processed in 16028 ms
+```
+
+
+### withContext
+
+Llama al bloque de suspensión especificado con un contexto de rutina determinado, lo suspende hasta que se completa y devuelve el resultado.
 
