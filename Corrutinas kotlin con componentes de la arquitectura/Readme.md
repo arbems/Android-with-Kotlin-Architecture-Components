@@ -48,7 +48,7 @@ launch(Dispatchers.Default + job + handleException + CoroutineName("test")) { }
 
 ## interface CoroutineContext
 
-Cada corrutina en Kotlin tiene un **contexto** que está representado por una instancia de la [interfaz CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/). 
+Cada corrutina en Kotlin tiene un **contexto** que está representado por una instancia de la interfaz [CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/). 
 
 El contexto actual de la corrutina está disponible a través de la propiedad `coroutineContext`:
 
@@ -58,16 +58,14 @@ println("My context is: $coroutineContext")
 
 **CoroutineContext** es un *indexed set* de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-element/). Un conjunto indexado es una mezcla entre un set y un map. Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-key.html).
 
-<img src="https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/0002.png" width="600" /><br>
-
 **Keys** que nos sirven para obtener los cuatro *Element* de nuestro **CoroutineContext**:
 
-| **Key**      | **Descripción**
-| ------------- | -------------
-| [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)                           |  Obtenemos el **Job** de la corrutina a la que se asocia el contexto.
-| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)       |  Obtenemos el **CoroutineDispatcher** de la corrutina a la que se asocia el contexto.
-| [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)     |  Obtenemos el **manejador de excepciones** de la corrutina a la que se asocia el contexto. 
-| [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)                 |  Obtenemos el **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración. 
+| **Key**      |  **Element**      | **Descripción**  
+| ------------- | ------------- | -------------
+| [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)                                                   |              |  Obtenemos el **Job** de la corrutina a la que se asocia el contexto.
+| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)                                            |              |  Obtenemos el **CoroutineDispatcher** de la corrutina a la que se asocia el contexto.
+| [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)     |              |  Obtenemos el **manejador de excepciones** de la corrutina a la que se asocia el contexto. 
+| [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)                              |              |  Obtenemos el **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración. 
 
 El contexto de la corrutina es inmutable, pero puede agregar elementos a un contexto usando el operador `plus`.
 Podemos combinar elementos de un contexto con los elementos de otro contexto gracias al operador `plus`, devolviendo un nuevo contexto que contiene los elementos combinados.
@@ -127,7 +125,9 @@ Los identificadores asignados automáticamente son buenos cuando las corrutinas 
 
 # Coroutine Scope
 
-### [interface CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html)
+## interface CoroutineScope
+
+La interface [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) define un alcance para nuevas corrutinas.
 
 Hay una interfaz llamada **CoroutineScope** consta de una única propiedad de tipo *CoroutineContext*:
 
