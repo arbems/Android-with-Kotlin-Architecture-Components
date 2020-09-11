@@ -137,19 +137,8 @@ Si alguna de las corrutinas arroja una excepción no controlada, su *Job* princi
 Funciones del constructor de corrutinas:
 
 | **Name**      | **Result**    | **Scope**        | **Description**
-| ------------- | ------------- | ---------------- | ---------------
-| [launch]      | [Job]         | [CoroutineScope] | Launches coroutine that does not have any result 
-| [async]       | [Deferred]    | [CoroutineScope] | Returns a single value with the future result
-| [produce][kotlinx.coroutines.channels.produce]     | [ReceiveChannel][kotlinx.coroutines.channels.ReceiveChannel] | [ProducerScope][kotlinx.coroutines.channels.ProducerScope]  | Produces a stream of elements
-| [runBlocking] | `T`           | [CoroutineScope] | Blocks the thread while the coroutine runs
-
-Los constructores son los que inician las corrutinas, se definen como función de extensión de *CoroutineScope* y toma *CoroutineContext* como parámetro, por lo que en realidad toma dos contextos de corrutina (ya que un *CoroutineScope* consta de una única propiedad `coroutineContext`).
-Estos contextos se fusionan de modo que los elementos del contexto parámetro tienen prioridad sobre los elementos del alcance.
-
-
-# Funciones de suspensión
-
-
-## Attribution
-
-This code was created by [arbems](https://github.com/arbems) in 2020.
+| ------------- | ------------- | ---------------- | ---------------------------------------------------
+| [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html)        |  [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)          | [CoroutineScope] | Lanza una corrutina que no tiene ningún resultado
+| [async](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html)       | [Deferred]    | [CoroutineScope] | Devuelve un solo valor con el resultado futuro
+| [produce](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html)     | [ReceiveChannel] | [ProducerScope]  | Produce un flujo de elementos.
+| [runBlocking](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) | `T`           | [CoroutineScope] | Bloquea el hilo mientras se ejecuta la corrutina
