@@ -56,7 +56,8 @@ El contexto actual de la corrutina está disponible a través de la propiedad `c
 println("My context is: $coroutineContext")
 ```
 
-**CoroutineContext** es un *indexed set* de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-element/). Un conjunto indexado es una mezcla entre un set y un map. Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-key.html).
+**CoroutineContext** es un conjunto indexado de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-element/), una mezcla entre un set y un map. <br>
+Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-key.html).
 
 **Keys** que nos sirven para obtener los cuatro *Element* de nuestro **CoroutineContext**:
 
@@ -84,7 +85,7 @@ Una corrutina padre siempre espera la finalización de todos sus hijos. Un padre
 
 ### CoroutineDispatcher
 
-[CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) es la clase base que se ampliará con todas las implementaciones de *dispatcher* de corrutina.
+[CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) es la clase base que se usara con todas las implementaciones de un *dispatcher* de corrutina.
 
 ```kotlin
 abstract class CoroutineDispatcher : ContinuationInterceptor
@@ -112,7 +113,6 @@ Puede limitar la ejecución de corrutinas a un hilo específico, enviarlo a un g
 | [runBlockingTest { ... }]()    | Hilo de Test                         | 1                                  | Unicamente en Test
 
 
-
 * **Dispatchers.Default**: *CoroutineDispatcher* por defecto, que utilizan todos los constructores como launch, async, etc. si no se especifica un dispatcher ni ningún otro *ContinuationInterceptor* en su contexto. 
 Utiliza un grupo común de hilos compartidos en segundo plano. Esta es una opción adecuada para corrutinas informáticas intensivas que consumen recursos de la CPU, como cálculos, algoritmos, etc.
 
@@ -131,24 +131,24 @@ Es apropiado para corrutinas que no consumen tiempo de CPU ni actualizan ningún
 
 ### CoroutineExceptionHandler
 
-[CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)
+[CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html) es un elemento opcional en el contexto de corrutina para manejar excepciones no detectadas.
+
+Normalmente, las excepciones no detectadas solo pueden resultar de las corrutinas *root* creadas con el constructor *launch*.
 
 ### CoroutineName
 
-[CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)
+[CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html) es el nombre de corrutina especificado por el usuario. Este nombre se utiliza en modo de depuración.
 
-Los identificadores asignados automáticamente son buenos cuando las corrutinas se registran con frecuencia y solo necesita correlacionar los registros que provienen de la misma corrutina. Sin embargo, cuando una corrutina está vinculada al procesamiento de una solicitud específica o al realizar alguna tarea específica en segundo plano, es mejor nombrarla explícitamente para fines de depuración. El elemento de contexto CoroutineName tiene el mismo propósito que el nombre del hilo. Se incluye en el nombre del hilo que está ejecutando esta corrutina cuando el modo de depuración está activado.
+Los identificadores asignados automáticamente son buenos cuando las corrutinas se registran con frecuencia y solo necesita correlacionar los registros que provienen de la misma corrutina.
 
-
+Sin embargo, cuando una corrutina está vinculada al procesamiento de una solicitud específica o al realizar alguna tarea específica en segundo plano, es mejor nombrarla explícitamente para fines de depuración. El elemento de contexto *CoroutineName* tiene el mismo propósito que el nombre del hilo. Se incluye en el nombre del hilo que está ejecutando esta corrutina cuando el modo de depuración está activado.
 
 
 # Coroutine Scope
 
-## interface CoroutineScope
+*Coroutine Scope* define un alcance para nuevas corrutinas. Cada constructor de corrutinas (como launch, async, etc.) es una función de extensión de *CoroutineScope* y hereda su *coroutineContext* para propagar automáticamente todos sus elementos y su cancelación.
 
-La interface [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) define un alcance para nuevas corrutinas.
-
-Hay una interfaz llamada **CoroutineScope** consta de una única propiedad de tipo *CoroutineContext*:
+La interfaz [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) consta de una única propiedad de tipo *CoroutineContext*:
 
 ```kotlin
 public interface CoroutineScope {
@@ -160,9 +160,7 @@ Cada vez que se crea un nuevo *Coroutine Scope*, se crea un nuevo *Job* y se aso
 Si alguna de las corrutinas arroja una excepción no controlada, su *Job* principal se cancela, lo que finalmente cancela todos sus elementos secundarios. Esto se llama **concurrencia estructurada**.
 
 
-
-
-# Coroutine Builder
+## Coroutine Builder
 
 Funciones del constructor de corrutinas:
 
@@ -172,3 +170,15 @@ Funciones del constructor de corrutinas:
 | [async](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/async.html)       | [Deferred](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/index.html)    | [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) | Devuelve un solo valor con el resultado futuro
 | [produce](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html)     | [ReceiveChannel](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-receive-channel/index.html) | [ProducerScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-producer-scope/index.html)  | Produce un flujo de elementos.
 | [runBlocking](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) | `T`           | [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) | Bloquea el hilo mientras se ejecuta la corrutina
+
+
+### launch
+
+Se define como función de extensión en *CoroutineScope* y toma un *CoroutineContext* como parámetro, por lo que en realidad toma dos contextos de corrutina (una del parámetro y otro del *CoroutineScope*).
+Estos se fusionan usando el operador `plus`, produciendo una unión de sus elementos, de modo que los elementos en el parámetro de contexto tienen prioridad sobre los elementos del *CoroutineScope*.
+
+### async
+
+
+### produce
+
