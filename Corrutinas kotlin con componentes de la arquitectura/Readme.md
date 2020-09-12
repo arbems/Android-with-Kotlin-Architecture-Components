@@ -27,7 +27,7 @@ Desde el punto de vista del rendimiento, las coroutines permiten la ejecución d
 
 ![scheme coroutines kotlin](https://raw.githubusercontent.com/arbems/Android-with-Kotlin-Architecture-Components/master/Corrutinas%20kotlin%20con%20componentes%20de%20la%20arquitectura/0001.png)
 
-# Coroutine Context
+# 1. Coroutine Context
 
 Un contexto es un *conjunto de elementos* que definen cómo se ejecutará la corrutina.
 
@@ -46,9 +46,7 @@ Podemos usar el operador (**+**) para definir el *conjunto de elementos* para un
 launch(Dispatchers.Default + job + handleException + CoroutineName("test")) { }
 ```
 
-## interface CoroutineContext
-
-Cada corrutina en Kotlin tiene un **contexto** que está representado por una instancia de la interfaz [CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/). 
+Cada corrutina en Kotlin tiene un **contexto** que está representado por una instancia de la [interfaz CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/). 
 
 El contexto actual de la corrutina está disponible a través de la propiedad `coroutineContext`:
 
@@ -71,7 +69,7 @@ Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/lates
 El contexto de la corrutina es inmutable, pero puede agregar elementos a un contexto usando el operador `plus`.
 Podemos combinar elementos de un contexto con los elementos de otro contexto gracias al operador `plus`, devolviendo un nuevo contexto que contiene los elementos combinados.
 
-### Job
+### 1.1. Job
 
 Un [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html) es parte del contexto. Una corrutina en sí misma está representada por un *Job*. Es responsable del ciclo de vida, la cancelación y las relaciones entre padres e hijos de la corrutina.
 
@@ -87,7 +85,7 @@ Sin embargo, cuando se utiliza [GlobalScope](https://kotlin.github.io/kotlinx.co
 
 Una corrutina padre siempre espera la finalización de todos sus hijos. Un padre no tiene que rastrear explícitamente a todos los hijos que lanza, y no tiene que usar Job.join para esperarlos al final.
 
-### CoroutineDispatcher
+### 1.2. CoroutineDispatcher
 
 [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) es la clase base que se usara con todas las implementaciones de [Dispatchers](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/index.html) de corrutina.
 
@@ -147,7 +145,7 @@ Es apropiado para corrutinas que no consumen tiempo de CPU ni actualizan ningún
 * Si el código es intensivo en CPU. Es decir, el código realiza cálculos (CPU), *Dispatchers.Default* es apropiado ya que está respaldado por un grupo de hilos con tantos hilos como núcleos de CPU.
 * El código es intensivo en IO. Es decir, el código se comunica a través de la red / archivo (IO). *Dispatchers.IO* es apropiado.
 
-### CoroutineExceptionHandler
+### 1.3. CoroutineExceptionHandler
 
 [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html) es un elemento opcional en el contexto de corrutina para manejar excepciones no detectadas.
 
@@ -157,7 +155,7 @@ interface CoroutineExceptionHandler : Element
 
 Normalmente, las excepciones no detectadas solo pueden resultar de las corrutinas *root* creadas con el constructor *launch*.
 
-### CoroutineName
+### 1.4. CoroutineName
 
 [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html) es el nombre de corrutina especificado por el usuario. Este nombre se utiliza en modo de depuración.
 
@@ -174,7 +172,7 @@ Los identificadores asignados automáticamente son buenos cuando las corrutinas 
 Sin embargo, cuando una corrutina está vinculada al procesamiento de una solicitud específica o al realizar alguna tarea específica en segundo plano, es mejor nombrarla explícitamente para fines de depuración. El elemento de contexto *CoroutineName* tiene el mismo propósito que el nombre del hilo. Se incluye en el nombre del hilo que está ejecutando esta corrutina cuando el modo de depuración está activado.
 
 
-# Coroutine Scope
+# 2. Coroutine Scope
 
 *Coroutine Scope* define un alcance para nuevas corrutinas. Cada constructor de corrutinas (como launch, async, etc.) es una función de extensión de *CoroutineScope* y hereda su *coroutineContext* para propagar automáticamente todos sus elementos y su cancelación.
 
@@ -190,7 +188,7 @@ Cada vez que se crea un nuevo *Coroutine Scope*, se crea un nuevo *Job* y se aso
 Si alguna de las corrutinas arroja una excepción no controlada, su *Job* principal se cancela, lo que finalmente cancela todos sus elementos secundarios. Esto se llama **concurrencia estructurada**.
 
 
-## Coroutine Builder
+## 3. Coroutine Builder
 
 Funciones del constructor de corrutinas:
 
@@ -202,7 +200,7 @@ Funciones del constructor de corrutinas:
 | [runBlocking](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) | `T`           | [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/index.html) | Bloquea el hilo mientras se ejecuta la corrutina
 
 
-### launch
+### 3.1. launch
 
 Lanza una nueva corrutina sin bloquear el hilo actual y devuelve una referencia a la corrutina como un *Job*. La corrutina se cancela cuando se cancela el *Job* resultante.
 Si el contexto no tiene ningún *dispatcher* ni ningún otro *ContinuationInterceptor*, se utiliza *Dispatchers.Default*.
@@ -220,7 +218,7 @@ fun CoroutineScope.launch(
 Realmente toma dos contextos de corrutina (una del parámetro y otro del *CoroutineScope*).
 Estos se fusionan usando el operador `plus`, produciendo una unión de sus elementos, de modo que los elementos en el parámetro de contexto tienen prioridad sobre los elementos del *CoroutineScope*.
 
-### async
+### 3.2. async
 
 Crea una corrutina y devuelve su resultado futuro como una implementación de [Deferred](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-deferred/index.html) que es un *Job* con un resultado exitoso o fallido del cálculo que se llevó a cabo.
 
@@ -236,11 +234,11 @@ fun <T> CoroutineScope.async(
 interface Deferred<out T> : Job
 ```
 
-### produce
+### 3.3. produce
 
 [produce](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/produce.html#:~:text=Launches%20a%20new%20coroutine%20to,elements%20produced%20by%20this%20coroutine.) lanza una nueva corrutina para producir un flujo de valores enviándolos a un canal y devuelve una referencia a la corrutina como un *ReceiveChannel*. Este objeto resultante se puede utilizar para recibir elementos producidos por esta corrutina.
 
-### runBlocking
+### 3.4. runBlocking
 
 [runBlocking](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html) ejecuta una nueva corrutina y bloquea el hilo actual de forma ininterrumpida hasta su finalización. Esta función no debe utilizarse desde una corrutina. 
 Está diseñado para conectar el código de bloqueo regular con las bibliotecas que están escritas en estilo de suspensión, para ser utilizadas en funciones principales y en pruebas.
@@ -256,7 +254,7 @@ fun main() = runBlocking { // this: CoroutineScope
 `Nota: No se suele usar en producción.`
 
 
-## Funciones de suspensión
+## 4. Funciones de suspensión
 
 Una *función de suspensión* es simplemente una función que se puede pausar y reanudar en un momento posterior. Pueden ejecutar una operación de larga duración y esperar a que se complete sin bloquear. 
 
@@ -285,12 +283,12 @@ Funciones de suspensión de nivel superior:
 
 
 
-### delay
+### 4.1. delay
 
 Retrasa la rutina durante un tiempo determinado sin bloquear un hilo y la reanuda después de un tiempo especificado. 
 Esta función de suspensión es cancelable. Si el trabajo de la corrutina actual se cancela o se completa mientras esta función de suspensión está esperando, esta función se reanuda inmediatamente con *CancellationException*.
 
-#### delay vs Thread.Sleep
+#### 4.1.1. delay vs Thread.Sleep
 
 `delay()` es como un `Thread.sleep()`, pero mejor: no bloquea un hilo, solo suspende la corrutina en sí.
 
@@ -333,7 +331,7 @@ fun main() = runBlocking {
 ```
 
 
-### withContext
+### 4.2. withContext
 
 Llama al bloque de suspensión especificado con un contexto de rutina determinado, lo suspende hasta que se completa y devuelve el resultado.
 
