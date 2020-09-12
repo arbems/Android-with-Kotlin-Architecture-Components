@@ -29,30 +29,7 @@ Desde el punto de vista del rendimiento, las coroutines permiten la ejecución d
 
 # 1. Coroutine Context
 
-Un contexto es un *conjunto de elementos* que definen cómo se ejecutará la corrutina.
-
-* El contexto de corrutina incluye un **dispatcher** de corrutina que determina qué hilo o hilos usa la correspondiente corrutina para su ejecución.
-* Incluye un **Job** que es responsable del ciclo de vida, la cancelación y las relaciones entre padres e hijos de la corrutina.
-* Incluye un **manejador de excepciones** que se asocia al contexto.
-* Y **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración.
-
-Hay dos maneras de asignar un Context, en el alcance de la corrutina o en el constructor de la corrutina (launch, async, etc.)
-
-Todos los constructores de corrutinas, como *launch* y *async*, aceptan un parámetro opcional de **CoroutineContext** que se puede utilizar para especificar explícitamente el [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) para la nueva corrutina y otros elementos de contexto como el [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html) de la corrutina, el [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html) de la corrutina y el [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html).
-
-Podemos usar el operador (**+**) para definir el *conjunto de elementos* para un contexto:
-
-```kotlin
-launch(Dispatchers.Default + job + handleException + CoroutineName("test")) { }
-```
-
-Cada corrutina en Kotlin tiene un **contexto** que está representado por una instancia de la [interfaz CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/). 
-
-El contexto actual de la corrutina está disponible a través de la propiedad `coroutineContext`:
-
-```kotlin
-println("My context is: $coroutineContext")
-```
+Las corrutinas siempre se ejecutan en algún contexto representado por un valor del tipo [CoroutineContext](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/), definido en la biblioteca estándar de Kotlin.
 
 **CoroutineContext** es un conjunto indexado de instancias de [Element](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-element/), una mezcla entre un set y un map. <br>
 Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/-key.html).
@@ -61,13 +38,26 @@ Cada *Element* de este conjunto tiene una [Key](https://kotlinlang.org/api/lates
 
 | **Key**      |  **Element**      | **Descripción**  
 | ------------- | ------------- | -------------
-| [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)                                                   |              |  Obtenemos el **Job** de la corrutina a la que se asocia el contexto.
-| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)                                            |              |  Obtenemos el [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) de la corrutina a la que se asocia el contexto.
-| [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)     |              |  Obtenemos el **manejador de excepciones** de la corrutina a la que se asocia el contexto. 
+| [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html)                                                   |              |  Es responsable del ciclo de vida, la cancelación y las relaciones entre padres e hijos de la corrutina.
+| [ContinuationInterceptor](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation-interceptor/)                                            |              |  [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) que se asocia al contexto.
+| [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html)     |              |  Manejador de excepciones que se asocia al contexto.
 | [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html)                              |              |  Obtenemos el **nombre de la corrutina** a la que se asocia el contexto. Establecer un nombre es útil para efectos de depuración. 
+
+Obtener *Job* de **CoroutineContext**:
+```kotlin
+val job: Job? = coroutineContext[Job] // coroutineContext[Key]
+```
 
 El contexto de la corrutina es inmutable, pero puede agregar elementos a un contexto usando el operador `plus`.
 Podemos combinar elementos de un contexto con los elementos de otro contexto gracias al operador `plus`, devolviendo un nuevo contexto que contiene los elementos combinados.
+
+`Hay dos maneras de asignar un Context, en el alcance de la corrutina o en el constructor de la corrutina (launch, async, etc.)`
+
+El contexto actual de la corrutina está disponible a través de la propiedad `coroutineContext`:
+
+```kotlin
+println("My context is: $coroutineContext")
+```
 
 ### 1.1. Job
 
@@ -190,6 +180,8 @@ Si alguna de las corrutinas arroja una excepción no controlada, su *Job* princi
 
 ## 3. Coroutine Builder
 
+Todos los constructores de corrutinas, como *launch* y *async*, aceptan un parámetro opcional de **CoroutineContext** que se puede utilizar para especificar explícitamente el [CoroutineDispatcher](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/index.html) para la nueva corrutina y otros elementos de contexto como el [Job](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/index.html) de la corrutina, el [CoroutineExceptionHandler](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-exception-handler/index.html) de la corrutina y el [CoroutineName](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-name/index.html).
+
 Funciones del constructor de corrutinas:
 
 | **Nombre**      | **Resultado**    | **Scope**        | **Descripción**
@@ -217,6 +209,12 @@ fun CoroutineScope.launch(
 
 Realmente toma dos contextos de corrutina (una del parámetro y otro del *CoroutineScope*).
 Estos se fusionan usando el operador `plus`, produciendo una unión de sus elementos, de modo que los elementos en el parámetro de contexto tienen prioridad sobre los elementos del *CoroutineScope*.
+
+Podemos usar el operador (**+**) para definir el *conjunto de elementos* para un contexto:
+
+```kotlin
+launch(Dispatchers.Default + job + handleException + CoroutineName("test")) { }
+```
 
 ### 3.2. async
 
@@ -334,4 +332,3 @@ fun main() = runBlocking {
 ### 4.2. withContext
 
 Llama al bloque de suspensión especificado con un contexto de rutina determinado, lo suspende hasta que se completa y devuelve el resultado.
-
