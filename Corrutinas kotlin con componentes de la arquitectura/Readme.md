@@ -12,27 +12,19 @@
 
 # Documentación:
 
-Las **corrutinas** de Kotlin proporcionan una API que te permite escribir código asíncrono. Puedes definir un **CoroutineScope**, lo que te ayuda a administrar cuándo deben ejecutarse las corrutinas. Cada operación asíncrona se ejecuta dentro de un alcance particular.
+Las corrutinas de Kotlin proporcionan una API que te permite escribir código asíncrono. Con las corrutinas de Kotlin, puedes definir un *CoroutineScope*, lo que te ayuda a administrar cuándo deben ejecutarse las corrutinas. Cada operación asíncrona se ejecuta dentro de un alcance particular.
 
-En Android, las corrutinas ayudan a administrar tareas de larga duración que, de lo contrario, podrían bloquear el hilo principal y hacer que una app dejara de responder.
-
-Las corrutinas son la solución recomendada para la **programación asíncrona en Android**. Por las siguientes razones:
-
-* **Ligereza**: Puedes ejecutar muchas corrutinas en un solo subproceso debido a la compatibilidad con la **suspensión**, que no bloquea el subproceso en el que se ejecuta la corrutina. Ahora, la suspensión ahorra más memoria que el bloqueo y admite muchas operaciones simultáneas.
-
-* **Menos fugas de memoria**: Usa la *simultaneidad estructurada* para ejecutar operaciones dentro de un alcance.
-
-* **Compatibilidad con cancelación incorporada**: Se propaga automáticamente la cancelación a través de la jerarquía de corrutinas en ejecución.
-
-* **Integración con Jetpack**: Muchas bibliotecas de Jetpack incluyen extensiones que proporcionan compatibilidad total con corrutinas. Además, algunas bibliotecas proporcionan su propio alcance de corrutina, que puedes usar para la simultaneidad estructurada.
-
-Desde el punto de vista del rendimiento, las coroutines permiten la ejecución de miles y hasta millones de hilos concurrentemente con un uso de recursos eficiente haciendo más robusta la aplicación al ser más difícil de alcanzar un error que indique falta de memoria.
+Los componentes de arquitectura proporcionan compatibilidad de primer nivel con las corrutinas para alcances lógicos de tu app, junto con una capa de interoperabilidad con LiveData.
 
 # Ámbitos de corrutinas optimizados para ciclos de vida
 
 ## ViewModelScope
 
-La biblioteca de *ViewModel KTX* ofrece una función **viewModelScope()** que facilita el lanzamiento de corrutinas desde tu *ViewModel*. El *CoroutineScope* está vinculado a *Dispatchers.Main* y se cancela automáticamente cuando se borra el *ViewModel*. Puedes usar *viewModelScope()* en lugar de crear un nuevo alcance para cada ViewModel.
+`viewModelScope` es un *CoroutineScope* predefinido que se incluye con las extensiones KTX de ViewModel.
+
+Esta librería ofrece una función `viewModelScope()` que facilita el lanzamiento de corrutinas desde tu *ViewModel*. El *CoroutineScope* está vinculado a *Dispatchers.Main* y se cancela automáticamente cuando se borra el *ViewModel*. Puedes usar *viewModelScope()* en lugar de crear un nuevo alcance para cada ViewModel.
+
+Todas las corrutinas deben ejecutarse en un alcance. *CoroutineScope* administra una o más corrutinas relacionadas.
 
 Extensión de KTX:
 `androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0`
@@ -82,6 +74,67 @@ class MyFragment: Fragment() {
 ```
 
 # Suspender corrutinas optimizadas para ciclos de vida
+
+Aunque CoroutineScope proporciona una forma adecuada de cancelar automáticamente operaciones de larga duración, es posible que haya otros casos en los que quieras suspender la ejecución de un bloque de código, a menos que el Lifecycle esté en un estado determinado.
+
+**Lifecycle** proporciona métodos adicionales: `lifecycle.whenCreated`, `lifecycle.whenStarted` y `lifecycle.whenResumed`. Se suspenderá cualquier ejecución de corrutina dentro de estos bloques si el Lifecycle no está al menos en el estado mínimo deseado.
+
+Bloque de código que se ejecuta solamente cuando el Lifecycle asociado está al menos en el estado **STARTED**:
+
+```kotlin
+class MyFragment: Fragment {
+    init { // Notice that we can safely launch in the constructor of the Fragment.
+        lifecycleScope.launch {
+            whenStarted {
+                // The block inside will run only when Lifecycle is at least STARTED.
+                // It will start executing when fragment is started and
+                // can call other suspend methods.
+                loadingView.visibility = View.VISIBLE
+                val canAccess = withContext(Dispatchers.IO) {
+                    checkUserAccess()
+                }
+
+                // When checkUserAccess returns, the next line is automatically
+                // suspended if the Lifecycle is not *at least* STARTED.
+                // We could safely run fragment transactions because we know the
+                // code won't run unless the lifecycle is at least STARTED.
+                loadingView.visibility = View.GONE
+                if (canAccess == false) {
+                    findNavController().popBackStack()
+                } else {
+                    showContent()
+                }
+            }
+
+            // This line runs only after the whenStarted block above has completed.
+
+        }
+    }
+}
+```
+
+Si el Lifecycle se destruye mientras una corrutina está activa mediante uno de los métodos when, se cancelará automáticamente la corrutina.
+En el siguiente ejemplo, el bloque finally se ejecuta una vez que el estado de Lifecycle es **DESTROYED**:
+
+```kotlin
+class MyFragment: Fragment {
+    init {
+        lifecycleScope.launchWhenStarted {
+            try {
+                // Call some suspend functions.
+            } finally {
+                // This line might execute after Lifecycle is DESTROYED.
+                if (lifecycle.state >= STARTED) {
+                    // Here, since we've checked, it is safe to run any
+                    // Fragment transactions.
+                }
+            }
+        }
+    }
+}
+```
+
+`Nota: Ten en cuenta que, aunque la actividad se reinicie, no ocurrirá lo mismo con la corrutina.`
 
 # Corrutinas con LiveData
 
