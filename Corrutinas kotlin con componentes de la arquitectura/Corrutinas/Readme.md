@@ -2,9 +2,9 @@
 
 *Este ejemplo muestra las siguientes características de [Corrutinas]()*:
 
-* Coroutine Context
-* Coroutine Builder
-* Coroutine Scope
+* Ejecutar en un hilo en segundo plano
+* Uso de corrutinas para la seguridad del hilo principal
+* Control de excepciones
 
 # Documentación
 
