@@ -24,10 +24,6 @@ Los componentes de la arquitectura son una colección de bibliotecas que te ayud
 
 #### [WorkManager](https://github.com/arbems/Android-with-Kotlin-Architecture-Components/tree/master/WorkManager)
 
-## Enlaces
-
-[Corrutinas de Kotlin en Android]()
-
 ## Attribution
 
 This code was created by [arbems](https://github.com/arbems) in 2020.
